@@ -1,0 +1,11 @@
+--- Makefile.orig	2014-07-25 01:59:04.799655653 +0800
++++ Makefile	2014-07-25 01:59:09.956306549 +0800
+@@ -42,8 +42,6 @@
+ 	@ln -sf $(BUILD)/bin/julia-$(DEFAULT_REPL) julia
+ 
+ julia-debug julia-release:
+-	@-git submodule init --quiet
+-	@-git submodule update
+ 	@$(MAKE) $(QUIET_MAKE) -C deps
+ 	@$(MAKE) $(QUIET_MAKE) -C src lib$@
+ 	@$(MAKE) $(QUIET_MAKE) -C base
