@@ -2,67 +2,56 @@
 # $FreeBSD$
 
 PORTNAME=	julia
-PORTVERSION=	0.2.1
-CATEGORIES=	lang
-MASTER_SITES=	${GITHUB_MASTER_SITE}/${GH_ACCOUNT}/${GH_PROJECT}/legacy.tar.gz/${GH_TAGNAME}?dummy=/
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
+PORTVERSION=	0.4.6
+DISTVERSIONPREFIX=	v
+CATEGORIES=	lang math
+MASTER_SITES=	GH
 
-MAINTAINER=	lwhsu@FreeBSD.org
+MAINTAINER=	iblis@hs.ntnu.edu.tw
 COMMENT=	The Julia Language: A fresh approach to technical computing
 
-USES=	gmake
-
-GITHUB_MASTER_SITE=	https://codeload.github.com
+USES=	gmake compiler:c++11-lib fortran
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	JuliaLang
 GH_PROJECT=	julia
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	7c5dea6
-JULIA_COMMIT=	e44b593905
+GH_TUPLE=	JuliaLang:libuv:efb4076:libuv \
+		JuliaLang:Rmath-julia:v0.1:Rmath \
+		JuliaLang:openspecfun:381db9b:openspecfun
 
-GITMODULES=	libuv openlibm Rmath JuliaDoc
+LIB_DEPENDS=	libarpack.so:math/arpack-ng \
+		libgit2.so:devel/libgit2 \
+		libutf8proc.so:textproc/utf8proc \
+		libopenblas.so:math/openblas
 
-libuv_GH_ACCOUNT=	${GH_ACCOUNT}
-libuv_GH_PROJECT=	libuv
-libuv_GH_COMMIT=	4c58385
-libuv_PATH=	deps/libuv
-libuv_DISTNAME=	${libuv_GH_ACCOUNT}-${libuv_GH_PROJECT}-${libuv_GH_COMMIT}
-MASTER_SITES+=	${GITHUB_MASTER_SITE}/${libuv_GH_ACCOUNT}/${libuv_GH_PROJECT}/legacy.tar.gz/${libuv_GH_COMMIT}?dummy=/:libuv
-DISTFILES+=	${libuv_DISTNAME}${EXTRACT_SUFX}:libuv
+BUILD_DEPENDS=	llvm-config37:devel/llvm37 \
+		pcre2-config:devel/pcre2 \
+		patchelf:sysutils/patchelf
 
-openlibm_GH_ACCOUNT=	${GH_ACCOUNT}
-openlibm_GH_PROJECT=	openlibm
-openlibm_GH_COMMIT=da6c9c1
-openlibm_PATH=	deps/openlibm
-openlibm_DISTNAME=	${openlibm_GH_ACCOUNT}-${openlibm_GH_PROJECT}-${openlibm_GH_COMMIT}
-MASTER_SITES+=	${GITHUB_MASTER_SITE}/${openlibm_GH_ACCOUNT}/${openlibm_GH_PROJECT}/legacy.tar.gz/${openlibm_GH_COMMIT}?dummy=/:openlibm
-DISTFILES+=	${openlibm_DISTNAME}${EXTRACT_SUFX}:openlibm
+DISTNAME_libunwind=	libunwind-1.1
+WRKSRC_libunwind=	${WRKDIR}/${DISTNAME_libunwind}
+MASTER_SITES+=	http://download.savannah.gnu.org/releases/libunwind/:libunwind
+DISTFILES+=	${DISTNAME_libunwind}${EXTRACT_SUFX}:libunwind
 
-Rmath_GH_ACCOUNT=	${GH_ACCOUNT}
-Rmath_GH_PROJECT=	Rmath
-Rmath_GH_COMMIT=	226598f
-Rmath_PATH=	deps/Rmath
-Rmath_DISTNAME=	${Rmath_GH_ACCOUNT}-${Rmath_GH_PROJECT}-${Rmath_GH_COMMIT}
-MASTER_SITES+=	${GITHUB_MASTER_SITE}/${Rmath_GH_ACCOUNT}/${Rmath_GH_PROJECT}/legacy.tar.gz/${Rmath_GH_COMMIT}?dummy=/:Rmath
-DISTFILES+=	${Rmath_DISTNAME}${EXTRACT_SUFX}:Rmath
+DISTNAME_dSFMT=	dSFMT-src-2.2.3
+WRKSRC_dSFMT=	${WRKDIR}/${DISTNAME_dSFMT}
+MASTER_SITES+=	http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/:dSFMT
+DISTFILES+=	${DISTNAME_dSFMT}${EXTRACT_SUFX}:dSFMT
 
-JuliaDoc_GH_ACCOUNT=	${GH_ACCOUNT}
-JuliaDoc_GH_PROJECT=	JuliaDoc
-JuliaDoc_GH_COMMIT=91ca0bf
-JuliaDoc_PATH=	doc/juliadoc
-JuliaDoc_DISTNAME=	${JuliaDoc_GH_ACCOUNT}-${JuliaDoc_GH_PROJECT}-${JuliaDoc_GH_COMMIT}
-MASTER_SITES+=	${GITHUB_MASTER_SITE}/${JuliaDoc_GH_ACCOUNT}/${JuliaDoc_GH_PROJECT}/legacy.tar.gz/${JuliaDoc_GH_COMMIT}?dummy=/:JuliaDoc
-DISTFILES+=	${JuliaDoc_DISTNAME}${EXTRACT_SUFX}:JuliaDoc
+MAKE_ARGS=	prefix=${PREFIX}
+
+TEST_TARGET=	test
+
+post-extract:
+	${MKDIR} -p ${WRKSRC}/doc/_build/html
+	(cd ${WRKSRC}/deps && ln -s ${WRKSRC_Rmath} Rmath)
+	(cd ${WRKSRC}/deps && ln -s ${WRKSRC_libuv} libuv)
+	(cd ${WRKSRC}/deps && ln -s ${WRKSRC_openspecfun} openspecfun)
+	(cd ${WRKSRC}/deps && ln -s ${WRKSRC_libunwind} libunwind)
+	(cd ${WRKSRC}/deps && ln -s ${WRKSRC_dSFMT} dsfmt)
 
 .include <bsd.port.pre.mk>
 
-post-extract:
-.for module in ${GITMODULES}
-	@${MV} ${WRKDIR}/${${module}_DISTNAME}/* ${WRKSRC}/${${module}_PATH}/
-.endfor
-
-post-patch:
-	@${REINPLACE_CMD} -e 's,JULIA_COMMIT.*,JULIA_COMMIT=${JULIA_COMMIT},' ${WRKSRC}/Make.inc
+MAKE_CMD=	LD_LIBRARY_PATH=/usr/local/lib/gcc48 gmake
 
 .include <bsd.port.post.mk>

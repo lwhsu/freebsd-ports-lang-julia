@@ -1,0 +1,133 @@
+--- deps/Makefile.orig	2016-06-19 17:16:52 UTC
++++ deps/Makefile
+@@ -267,14 +267,9 @@ ifeq (exists, $$(shell [ -d $$(JULIAHOME
+ $1/$4: $$(JULIAHOME)/.git/modules/deps/$1/HEAD
+ endif
+ else # NO_GIT
+-$2_SRC_DIR = $1-$$($2_SHA1)
+-$$($2_SRC_DIR).tar.gz:
+-	$$(JLDOWNLOAD) $$@ $$(call $2_TAR_URL,$$($2_SHA1))
+-$$($2_SRC_DIR)/$3: $$($2_SRC_DIR).tar.gz
+-	$$(JLCHECKSUM) $$($2_SRC_DIR).tar.gz
+-	mkdir -p $$($2_SRC_DIR) && \
+-	$(TAR) -C $$($2_SRC_DIR) --strip-components 1 -xf $$<
+-	touch -c $$@
++$2_SRC_DIR ?= $1-$$($2_SHA1)
++$$($2_SRC_DIR)/$3:
++	:
+ endif
+ distclean-$1:
+ 	-rm -rf $$($2_SRC_DIR) $$($2_SRC_DIR).tar.gz
+@@ -903,7 +898,7 @@ install-openspecfun: $(OPENSPECFUN_OBJ_T
+ ## DSFMT ##
+ 
+ DSFMT_OBJ_TARGET = $(build_shlibdir)/libdSFMT.$(SHLIB_EXT) $(build_includedir)/dSFMT.h
+-DSFMT_OBJ_SOURCE = dsfmt-$(DSFMT_VER)/libdSFMT.$(SHLIB_EXT)
++DSFMT_OBJ_SOURCE = $(DSFMT_SRC_DIR)/libdSFMT.$(SHLIB_EXT)
+ 
+ DSFMT_CFLAGS = $(CFLAGS) -DNDEBUG -DDSFMT_MEXP=19937 $(fPIC) -DDSFMT_DO_NOT_USE_OLD_NAMES
+ ifneq ($(USEMSVC), 1)
+@@ -916,20 +911,16 @@ ifeq ($(ARCH), x86_64)
+ DSFMT_CFLAGS += -msse2 -DHAVE_SSE2
+ endif
+ 
+-dsfmt-$(DSFMT_VER).tar.gz:
+-	$(JLDOWNLOAD) $@ http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/dSFMT-src-$(DSFMT_VER).tar.gz
+-	touch -c $@
+-dsfmt-$(DSFMT_VER)/config.status: dsfmt-$(DSFMT_VER).tar.gz
+-	$(JLCHECKSUM) $<
+-	mkdir -p dsfmt-$(DSFMT_VER) && \
+-	$(TAR) -C dsfmt-$(DSFMT_VER) --strip-components 1 -xf dsfmt-$(DSFMT_VER).tar.gz && \
+-	cd dsfmt-$(DSFMT_VER) && patch < ../dSFMT.h.patch && patch < ../dSFMT.c.patch
++$(DSFMT_SRC_DIR)/config.status:
++	cd $(DSFMT_SRC_DIR) && \
++	patch < $(JULIAHOME)/deps/dSFMT.h.patch && \
++	patch < $(JULIAHOME)/deps/dSFMT.c.patch
+ 	echo 1 > $@
+-$(DSFMT_OBJ_SOURCE): dsfmt-$(DSFMT_VER)/config.status
+-	cd dsfmt-$(DSFMT_VER) && \
++$(DSFMT_OBJ_SOURCE): $(DSFMT_SRC_DIR)/config.status
++	cd $(DSFMT_SRC_DIR) && \
+ 	$(CC) $(CPPFLAGS) $(DSFMT_CFLAGS) $(LDFLAGS) dSFMT.c -o libdSFMT.$(SHLIB_EXT)
+ $(build_shlibdir)/libdSFMT%$(SHLIB_EXT) $(build_includedir)/dSFMT%h: $(DSFMT_OBJ_SOURCE) | $(build_includedir) $(build_shlibdir)
+-	cp dsfmt-$(DSFMT_VER)/dSFMT.h $(build_includedir)
++	cp $(DSFMT_SRC_DIR)/dSFMT.h $(build_includedir)
+ 	cp $< $(build_shlibdir)/libdSFMT.$(SHLIB_EXT) && \
+ 	$(INSTALL_NAME_CMD)libdSFMT.$(SHLIB_EXT) $(build_shlibdir)/libdSFMT.$(SHLIB_EXT)
+ 
+@@ -959,14 +950,9 @@ RMATH_JULIA_FLAGS += CC="$(CC)" USECLANG
+ 			   USE_DSFMT=1 DSFMT_libdir="$(build_shlibdir)" \
+ 			   DSFMT_includedir="$(build_includedir)"
+ 
+-Rmath-julia-$(RMATH_JULIA_VER).tar.gz:
+-	$(JLDOWNLOAD) $@ https://api.github.com/repos/JuliaLang/Rmath-julia/tarball/v$(RMATH_JULIA_VER)
+-$(RMATH_JULIA_OBJ_SOURCE): Rmath-julia-$(RMATH_JULIA_VER).tar.gz
+-	$(JLCHECKSUM) Rmath-julia-$(RMATH_JULIA_VER).tar.gz && \
+-	mkdir -p Rmath-julia-$(RMATH_JULIA_VER) && \
+-	$(TAR) -C Rmath-julia-$(RMATH_JULIA_VER) --strip-components 1 -xf $< && \
+-	$(MAKE) -C Rmath-julia-$(RMATH_JULIA_VER)/src $(RMATH_JULIA_FLAGS) $(MAKE_COMMON) && \
+-	touch -c $@
++$(RMATH_JULIA_OBJ_SOURCE):
++	$(MAKE) -C $(RMATH_SRC_DIR)/src $(RMATH_JULIA_FLAGS) $(MAKE_COMMON)
++
+ $(RMATH_JULIA_OBJ_TARGET): $(RMATH_JULIA_OBJ_SOURCE) | $(build_shlibdir)
+ 	cp $< $@
+ 	$(INSTALL_NAME_CMD)libRmath-julia.$(SHLIB_EXT) $@
+@@ -1644,32 +1630,28 @@ install-suitesparse-wrapper: $(build_shl
+ ## UNWIND ##
+ 
+ LIBUNWIND_TARGET_OBJ = $(build_libdir)/libunwind.a
+-LIBUNWIND_TARGET_SOURCE = libunwind-$(UNWIND_VER)/src/.libs/libunwind.a
++LIBUNWIND_TARGET_SOURCE = $(LIBUNWIND_SRC_DIR)/src/.libs/libunwind.a
+ LIBUNWIND_CFLAGS = -U_FORTIFY_SOURCE $(fPIC)
+ LIBUNWIND_CPPFLAGS =
+ 
+-libunwind-$(UNWIND_VER).tar.gz:
+-	$(JLDOWNLOAD) $@ http://download.savannah.gnu.org/releases/libunwind/$@
+-libunwind-$(UNWIND_VER)/configure: libunwind-$(UNWIND_VER).tar.gz
+-	$(JLCHECKSUM) $<
+-	$(TAR) xfz $<
+-	cd libunwind-$(UNWIND_VER) && patch -p1 < ../libunwind.patch
++$(LIBUNWIND_SRC_DIR)/configure:
++	cd $(LIBUNWIND_SRC_DIR) && patch -p1 < $(JULIAHOME)/deps/libunwind.patch
+ 	touch -c $@
+-libunwind-$(UNWIND_VER)/config.status: libunwind-$(UNWIND_VER)/configure
+-	cd libunwind-$(UNWIND_VER) && \
++$(LIBUNWIND_SRC_DIR)/config.status: $(LIBUNWIND_SRC_DIR)/configure
++	cd $(LIBUNWIND_SRC_DIR) && \
+ 	./configure $(CONFIGURE_COMMON) CPPFLAGS="$(CPPFLAGS) $(LIBUNWIND_CPPFLAGS)" CFLAGS="$(CFLAGS) $(LIBUNWIND_CFLAGS)" --disable-shared --disable-minidebuginfo
+ 	touch -c $@
+-$(LIBUNWIND_TARGET_SOURCE): libunwind-$(UNWIND_VER)/config.status
+-	$(MAKE) -C libunwind-$(UNWIND_VER)
++$(LIBUNWIND_TARGET_SOURCE): $(LIBUNWIND_SRC_DIR)/config.status
++	$(MAKE) -C $(LIBUNWIND_SRC_DIR)
+ 	touch -c $@
+-libunwind-$(UNWIND_VER)/checked: $(LIBUNWIND_TARGET_SOURCE)
++$(LIBUNWIND_SRC_DIR)/checked: $(LIBUNWIND_TARGET_SOURCE)
+ ifeq ($(OS),$(BUILD_OS))
+-	$(MAKE) -C libunwind-$(UNWIND_VER) check
++	$(MAKE) -C $(LIBUNWIND_SRC_DIR) check
+ endif
+ 	echo 1 > $@
+ #todo: libunwind tests known to fail
+ $(LIBUNWIND_TARGET_OBJ): $(LIBUNWIND_TARGET_SOURCE)
+-	$(call make-install,libunwind-$(UNWIND_VER),)
++	$(call make-install,$(LIBUNWIND_SRC_DIR),)
+ ifeq ($(ARCH), ppc64)
+ 	# workaround for configure script bug
+ 	mv $(build_prefix)/lib64/libunwind*.a $(build_libdir)
+@@ -1682,10 +1664,11 @@ clean-unwind:
+ distclean-unwind:
+ 	-rm -rf libunwind-$(UNWIND_VER).tar.gz libunwind-$(UNWIND_VER)
+ 
+-get-unwind: libunwind-$(UNWIND_VER).tar.gz
+-configure-unwind: libunwind-$(UNWIND_VER)/config.status
++get-unwind:
++	:
++configure-unwind: $(LIBUNWIND_SRC_DIR)/config.status
+ compile-unwind: $(LIBUNWIND_TARGET_SOURCE)
+-check-unwind: libunwind-$(UNWIND_VER)/checked
++check-unwind: $(LIBUNWIND_SRC_DIR)/checked
+ install-unwind: $(LIBUNWIND_TARGET_OBJ)
+ 
+ ## OS X Unwind ##
