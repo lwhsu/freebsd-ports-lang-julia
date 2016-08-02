@@ -7,7 +7,7 @@ DISTVERSIONPREFIX=	v
 CATEGORIES=	lang math
 MASTER_SITES=	GH
 
-MAINTAINER=	lwhsu@FreeBSD.org
+MAINTAINER=	iblis@hs.ntnu.edu.tw
 COMMENT=	The Julia Language: A fresh approach to technical computing
 
 USES=	gmake compiler:c++11-lib fortran
