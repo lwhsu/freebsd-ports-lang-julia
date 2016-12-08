@@ -1,13 +1,3 @@
-TIMESTAMP = 1469987770
-SHA256 (libunwind-1.1.tar.gz) = 9dfe0fcae2a866de9d3942c66995e4b460230446887dbdab302d41a8aee8d09a
-SIZE (libunwind-1.1.tar.gz) = 1098603
-SHA256 (dSFMT-src-2.2.3.tar.gz) = 82344874522f363bf93c960044b0a6b87b651c9565b6312cf8719bb8e4c26a0e
-SIZE (dSFMT-src-2.2.3.tar.gz) = 291773
-SHA256 (JuliaLang-julia-v0.4.6_GH0.tar.gz) = 91cbf59320bfc1dda5982d25ec5a98af3fbc820c3e1af6cd166488fd76e55a39
-SIZE (JuliaLang-julia-v0.4.6_GH0.tar.gz) = 3391607
-SHA256 (JuliaLang-libuv-efb4076_GH0.tar.gz) = 399cd967f99f51a5136399eb606ddcfe1d19540f648f7872335cee72ab52851c
-SIZE (JuliaLang-libuv-efb4076_GH0.tar.gz) = 730325
-SHA256 (JuliaLang-Rmath-julia-v0.1_GH0.tar.gz) = 8ba59378273dea999f956cecf37d47723682f3a46b55ce76ec36a0ffdbe6c8f7
-SIZE (JuliaLang-Rmath-julia-v0.1_GH0.tar.gz) = 169087
-SHA256 (JuliaLang-openspecfun-381db9b_GH0.tar.gz) = 4f23763ae1aa231a01766afc7c98d65a16b067b3b88be55c62d6720460e5d010
-SIZE (JuliaLang-openspecfun-381db9b_GH0.tar.gz) = 128064
+TIMESTAMP = 1480595116
+SHA256 (julia-0.5.0-full.tar.gz) = 732478536b6dccecbf56e541eef0aed04de0e6d63ae631b136e033dda2e418a9
+SIZE (julia-0.5.0-full.tar.gz) = 93294087
