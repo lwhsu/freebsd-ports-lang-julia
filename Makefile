@@ -21,6 +21,7 @@ BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc
 
+ALL_TARGET=	default
 
 TEST_TARGET=	test
 
