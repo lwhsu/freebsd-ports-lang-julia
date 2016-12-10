@@ -39,7 +39,7 @@
 +NO_GIT=	1
 +FORCE_ASSERTIONS=	1
 +
-+LIBDIRS=	/usr/local/lib
++LIBDIRS=	$(LOCALBASE)/lib
 +
 +LIBBLAS = -lopenblas -L/usr/local/lib
 +LIBBLASNAME = libopenblas

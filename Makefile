@@ -19,7 +19,8 @@ BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 		patchelf:sysutils/patchelf
 
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
-		libutf8proc.so:textproc/utf8proc
+		libutf8proc.so:textproc/utf8proc \
+		libopenblas.so:math/openblas
 
 ALL_TARGET=	default
 
