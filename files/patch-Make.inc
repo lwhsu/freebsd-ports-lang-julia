@@ -1,4 +1,4 @@
---- Make.inc.orig	2016-12-02 03:29:21 UTC
+--- Make.inc.orig	2016-09-20 02:54:21 UTC
 +++ Make.inc
 @@ -128,12 +128,7 @@ endif
  # disable automatic Makefile rules
