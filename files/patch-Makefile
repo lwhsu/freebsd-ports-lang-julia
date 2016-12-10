@@ -6,11 +6,22 @@
  
 -install: $(build_depsbindir)/stringreplace $(BUILDROOT)/doc/_build/html
 -	@$(MAKE) $(QUIET_MAKE) all
-+install: $(build_depsbindir)/stringreplace $(BUILDROOT)/doc/_build/html default
++install: $(build_depsbindir)/stringreplace default
  	@for subdir in $(bindir) $(libexecdir) $(datarootdir)/julia/site/$(VERSDIR) $(docdir) $(man1dir) $(includedir)/julia $(libdir) $(private_libdir) $(sysconfdir); do \
  		mkdir -p $(DESTDIR)$$subdir; \
  	done
-@@ -409,22 +408,18 @@ endif
+@@ -387,10 +386,6 @@ endif
+ 	$(INSTALL_M) $(JULIAHOME)/contrib/julia-config.jl $(DESTDIR)$(datarootdir)/julia/
+ 	# Copy in all .jl sources as well
+ 	cp -R -L $(build_datarootdir)/julia $(DESTDIR)$(datarootdir)/
+-	# Copy documentation
+-	cp -R -L $(build_docdir)/* $(DESTDIR)$(docdir)/
+-	cp -R -L $(BUILDROOT)/doc/_build/html $(DESTDIR)$(docdir)/
+-	-rm $(DESTDIR)$(docdir)/html/.buildinfo
+ 	# Remove perf suite
+ 	-rm -rf $(DESTDIR)$(datarootdir)/julia/test/perf/
+ 	# Remove various files which should not be installed
+@@ -409,27 +404,32 @@ endif
  	mkdir -p $(DESTDIR)$(datarootdir)/appdata/
  	$(INSTALL_F) $(JULIAHOME)/contrib/julia.appdata.xml $(DESTDIR)$(datarootdir)/appdata/
  
@@ -36,3 +47,17 @@
  endif
  
  	mkdir -p $(DESTDIR)$(sysconfdir)
+ 	cp -R $(build_sysconfdir)/julia $(DESTDIR)$(sysconfdir)/
+ 
++install-docs:
++	mkdir -p $(DESTDIR)$(docdir)/
++	cp -R -L $(BUILDROOT)/doc/_build/html $(DESTDIR)$(docdir)/
++	rm $(DESTDIR)$(docdir)/html/.buildinfo
++
++install-examples:
++	mkdir -p $(DESTDIR)$(datarootdir)/examples/julia/
++	cp -R -L $(JULIAHOME)/examples/* $(DESTDIR)$(datarootdir)/examples/julia/
++
+ distclean dist-clean:
+ 	-rm -fr $(BUILDROOT)/julia-*.tar.gz $(BUILDROOT)/julia*.exe $(BUILDROOT)/julia-*.7z $(BUILDROOT)/julia-$(JULIA_COMMIT)
+ 

@@ -24,19 +24,23 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libgit2.so:devel/libgit2
 
 ALL_TARGET=	default
-
+INSTALL_TARGET=	install
 TEST_TARGET=	test
 
 CXXFLAGS+=	-stdlib=libc++ -std=c++11
 MAKE_ARGS+=	prefix=${PREFIX} JCXXFLAGS="${CXXFLAGS}" \
 		FORCE_ASSERTIONS=${FORCE_ASSERTIONS}
 
-OPTIONS_DEFINE=	DEBUG DOCS
+OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS
 OPTIONS_SUB=	yes
-
-PORTDOCS=	html
 
 DEBUG_VARS=	FORCE_ASSERTIONS=1 \
 		ALL_TARGET=all
+
+PORTDOCS=	html
+DOCS_VARS=	INSTALL_TARGET+=install-docs
+
+PORTEXAMPLES=	*
+EXAMPLES_VARS=	INSTALL_TARGET+=install-examples
 
 .include <bsd.port.mk>
