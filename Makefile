@@ -20,7 +20,8 @@ BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc \
-		libopenblas.so:math/openblas
+		libopenblas.so:math/openblas \
+		libgit2.so:devel/libgit2
 
 ALL_TARGET=	default
 
