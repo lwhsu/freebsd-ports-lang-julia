@@ -29,4 +29,11 @@ TEST_TARGET=	test
 CXXFLAGS+=	-stdlib=libc++ -std=c++11
 MAKE_ARGS+=	prefix=${PREFIX} JCXXFLAGS="${CXXFLAGS}" FORCE_ASSERTIONS=1
 
+OPTIONS_DEFINE=	DEBUG DOCS
+OPTIONS_SUB=	yes
+
+PORTDOCS=	html
+
+# TBD: DEBUG
+
 .include <bsd.port.mk>
