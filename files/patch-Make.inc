@@ -13,6 +13,15 @@
  
  # Julia's Semantic Versioning system labels the three decimal places in a version number as
  # the major, minor and patch versions.  Typically the major version would be incremented
+@@ -400,7 +395,7 @@ JCFLAGS := -pipe $(fPIC) -fno-strict-ali
+ JCPPFLAGS := -fasynchronous-unwind-tables
+ JCXXFLAGS := -pipe $(fPIC) -fno-rtti -pedantic
+ DEBUGFLAGS := -O0 -g -DJL_DEBUG_BUILD -fstack-protector-all
+-SHIPFLAGS := -O3 -g
++SHIPFLAGS := -O3
+ ifeq ($(OS), Darwin)
+ ifeq ($(USE_LIBCPP), 1)
+ CC += -stdlib=libc++ -mmacosx-version-min=10.7
 @@ -832,7 +827,7 @@ endif
  
  ifeq ($(USE_SYSTEM_UTF8PROC), 1)
