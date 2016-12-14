@@ -22,7 +22,6 @@ BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 
 USES=	gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
-INSTALLS_ICONS=	yes
 
 WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
@@ -35,7 +34,7 @@ MAKE_ARGS+=	prefix=${PREFIX} JCXXFLAGS="${CXXFLAGS}" \
 		FORCE_ASSERTIONS=${FORCE_ASSERTIONS} \
 		USE_GPL_LIBS=${USE_GPL_LIBS}
 
-OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS GPL_LIBS
+OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS GPL_LIBS DESKTOP
 OPTIONS_SUB=	yes
 
 DEBUG_VARS=	FORCE_ASSERTIONS=1 \
@@ -52,5 +51,9 @@ GPL_LIBS_LIB_DEPENDS=	libfftw3.so:math/fftw3 \
 			libfftw3f.so:math/fftw3-float \
 			libumfpack.so:math/suitesparse
 GPL_LIBS_VARS=	USE_GPL_LIBS=1
+
+DESKTOP_DESC=	Install icon, .desktop and appdata file
+DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
+		INSTALLS_ICONS=yes
 
 .include <bsd.port.mk>

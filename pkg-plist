@@ -44,9 +44,9 @@ lib/julia/sys.so
 lib/libjulia.so
 lib/libjulia.so.0.5
 lib/libjulia.so.0.5.0
-share/appdata/julia.appdata.xml
-share/applications/julia.desktop
-share/icons/hicolor/scalable/apps/julia.svg
+%%DESKTOP%%share/appdata/julia.appdata.xml
+%%DESKTOP%%share/applications/julia.desktop
+%%DESKTOP%%share/icons/hicolor/scalable/apps/julia.svg
 %%DATADIR%%/base/Enums.jl
 %%DATADIR%%/base/LineEdit.jl
 %%DATADIR%%/base/Makefile

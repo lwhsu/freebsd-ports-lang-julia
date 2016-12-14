@@ -21,9 +21,20 @@
  	# Remove perf suite
  	-rm -rf $(DESTDIR)$(datarootdir)/julia/test/perf/
  	# Remove various files which should not be installed
-@@ -409,27 +404,32 @@ endif
- 	mkdir -p $(DESTDIR)$(datarootdir)/appdata/
- 	$(INSTALL_F) $(JULIAHOME)/contrib/julia.appdata.xml $(DESTDIR)$(datarootdir)/appdata/
+@@ -398,38 +393,44 @@ endif
+ 	-rm -f $(DESTDIR)$(datarootdir)/julia/test/Makefile
+ 	# Copy in beautiful new man page
+ 	$(INSTALL_F) $(build_man1dir)/julia.1 $(DESTDIR)$(man1dir)/
+-	# Copy icon and .desktop file
+-	mkdir -p $(DESTDIR)$(datarootdir)/icons/hicolor/scalable/apps/
+-	$(INSTALL_F) $(JULIAHOME)/contrib/julia.svg $(DESTDIR)$(datarootdir)/icons/hicolor/scalable/apps/
+-	-touch -c $(DESTDIR)$(datarootdir)/icons/hicolor/
+-	-gtk-update-icon-cache $(DESTDIR)$(datarootdir)/icons/hicolor/
+-	mkdir -p $(DESTDIR)$(datarootdir)/applications/
+-	$(INSTALL_F) $(JULIAHOME)/contrib/julia.desktop $(DESTDIR)$(datarootdir)/applications/
+-	# Install appdata file
+-	mkdir -p $(DESTDIR)$(datarootdir)/appdata/
+-	$(INSTALL_F) $(JULIAHOME)/contrib/julia.appdata.xml $(DESTDIR)$(datarootdir)/appdata/
  
 -	# Update RPATH entries and JL_SYSTEM_IMAGE_PATH if $(private_libdir_rel) != $(build_private_libdir_rel)
 -ifneq ($(private_libdir_rel),$(build_private_libdir_rel))
@@ -57,6 +68,17 @@
 +install-examples:
 +	mkdir -p $(DESTDIR)$(datarootdir)/examples/julia/
 +	cp -R -L $(JULIAHOME)/examples/* $(DESTDIR)$(datarootdir)/examples/julia/
++
++install-desktop:
++	# Copy icon and .desktop file
++	mkdir -p $(DESTDIR)$(datarootdir)/icons/hicolor/scalable/apps/
++	$(INSTALL_F) $(JULIAHOME)/contrib/julia.svg $(DESTDIR)$(datarootdir)/icons/hicolor/scalable/apps/
++	-touch -c $(DESTDIR)$(datarootdir)/icons/hicolor/
++	mkdir -p $(DESTDIR)$(datarootdir)/applications/
++	$(INSTALL_F) $(JULIAHOME)/contrib/julia.desktop $(DESTDIR)$(datarootdir)/applications/
++	# Install appdata file
++	mkdir -p $(DESTDIR)$(datarootdir)/appdata/
++	$(INSTALL_F) $(JULIAHOME)/contrib/julia.appdata.xml $(DESTDIR)$(datarootdir)/appdata/
 +
  distclean dist-clean:
  	-rm -fr $(BUILDROOT)/julia-*.tar.gz $(BUILDROOT)/julia*.exe $(BUILDROOT)/julia-*.7z $(BUILDROOT)/julia-$(JULIA_COMMIT)
