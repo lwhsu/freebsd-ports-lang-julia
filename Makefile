@@ -14,7 +14,8 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc \
 		libopenblas.so:math/openblas \
 		libgit2.so:devel/libgit2 \
-		libgmp.so:math/gmp
+		libgmp.so:math/gmp \
+		libmpfr.so:math/mpfr
 BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf

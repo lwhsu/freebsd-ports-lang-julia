@@ -35,6 +35,7 @@ lib/julia/libdSFMT.so
 lib/julia/libopenspecfun.so
 lib/julia/libopenspecfun.so.1
 lib/julia/libopenspecfun.so.1.3
+%%GPL_LIBS%%lib/julia/libsuitesparse_wrapper.so
 %%DEBUG%%lib/julia/sys-debug.so
 lib/julia/sys.so
 %%DEBUG%%lib/libjulia-debug.so
