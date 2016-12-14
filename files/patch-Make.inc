@@ -13,6 +13,24 @@
  
  # Julia's Semantic Versioning system labels the three decimal places in a version number as
  # the major, minor and patch versions.  Typically the major version would be incremented
+@@ -178,7 +173,7 @@ libdir := $(prefix)/lib
+ libexecdir := $(prefix)/libexec
+ datarootdir := $(prefix)/share
+ docdir := $(datarootdir)/doc/julia
+-mandir := $(datarootdir)/man
++mandir := $(prefix)/man
+ man1dir := $(mandir)/man1
+ includedir := $(prefix)/include
+ sysconfdir := $(prefix)/etc
+@@ -192,7 +187,7 @@ build_libdir := $(build_prefix)/lib
+ build_libexecdir := $(build_prefix)/libexec
+ build_datarootdir := $(build_prefix)/share
+ build_docdir := $(build_datarootdir)/doc/julia
+-build_mandir := $(build_datarootdir)/man
++build_mandir := $(build_prefix)/man
+ build_man1dir := $(build_mandir)/man1
+ build_includedir := $(build_prefix)/include
+ build_sysconfdir := $(build_prefix)/etc
 @@ -400,7 +395,7 @@ JCFLAGS := -pipe $(fPIC) -fno-strict-ali
  JCPPFLAGS := -fasynchronous-unwind-tables
  JCXXFLAGS := -pipe $(fPIC) -fno-rtti -pedantic

@@ -22,7 +22,7 @@
 +USE_SYSTEM_SUITESPARSE=	1
 +
 +USE_BLAS64=		1
-+LIBBLAS=	-lopenblas -L/usr/local/lib
++LIBBLAS=	-lopenblas -L$(LOCALBASE)/lib
 +LIBBLASNAME=	libopenblas
 +
 +LIBLAPACK=	$(LIBBLAS)
