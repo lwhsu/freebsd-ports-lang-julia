@@ -8,7 +8,10 @@ CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
-COMMENT=	The Julia Language: A fresh approach to technical computing
+COMMENT=	Julia programming Language: A fresh approach to technical computing
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc \
