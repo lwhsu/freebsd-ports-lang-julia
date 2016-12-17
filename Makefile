@@ -13,8 +13,6 @@ COMMENT=	Julia programming Language: A fresh approach to technical computing
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-ONLY_FOR_ARCHS=	amd64
-
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc \
 		libopenblas.so:math/openblas \
@@ -24,6 +22,8 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf
+
+ONLY_FOR_ARCHS=	amd64
 
 USES=	gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
