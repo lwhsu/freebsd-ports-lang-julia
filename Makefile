@@ -13,6 +13,8 @@ COMMENT=	Julia programming Language: A fresh approach to technical computing
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
+ONLY_FOR_ARCHS=	amd64
+
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc \
 		libopenblas.so:math/openblas \
