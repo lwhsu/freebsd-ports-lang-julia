@@ -1,6 +1,6 @@
---- Make.user.orig	2016-12-14 05:49:39 UTC
+--- Make.user.orig	2016-12-17 12:39:14 UTC
 +++ Make.user
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,25 @@
 +USE_SYSTEM_ARPACK=	1
 +USE_SYSTEM_BLAS=	1
 +USE_SYSTEM_GMP=		1
@@ -21,7 +21,6 @@
 +USE_SYSTEM_FFTW=	1
 +USE_SYSTEM_SUITESPARSE=	1
 +
-+USE_BLAS64=		1
 +LIBBLAS=	-lopenblas -L$(LOCALBASE)/lib
 +LIBBLASNAME=	libopenblas
 +

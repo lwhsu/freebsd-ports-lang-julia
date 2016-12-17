@@ -61,4 +61,13 @@ DESKTOP_DESC=	Install icon, .desktop and appdata file
 DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
 
+post-patch:
+	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
+		${FILESDIR}/check_openblas.c
+	${WRKSRC}/check_openblas && ( \
+		echo "USE_BLAS64=1" >> ${WRKSRC}/Make.user \
+	) || ( \
+		echo "USE_BLAS64=0" >> ${WRKSRC}/Make.user \
+	)
+
 .include <bsd.port.mk>
