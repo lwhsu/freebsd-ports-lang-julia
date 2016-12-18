@@ -62,6 +62,6 @@ DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
 
 post-patch:
-	/usr/bin/env FILE=${WRKSRC}/Make.user ${SCRIPTDIR}/check_openblas.sh
+	${SETENV} FILE=${WRKSRC}/Make.user ${SCRIPTDIR}/check_openblas.sh
 
 .include <bsd.port.mk>
