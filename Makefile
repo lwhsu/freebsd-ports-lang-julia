@@ -61,7 +61,7 @@ DESKTOP_DESC=	Install icon, .desktop and appdata file
 DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
 
-post-patch:
+do-configure:
 	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
 		${FILESDIR}/check_openblas.c
 	${WRKSRC}/check_openblas && ( \
