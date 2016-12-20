@@ -1,5 +1,5 @@
-# Created by: Li-Wen Hsu <lwhsu@FreeBSD.org>
-# $FreeBSD$
+# Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
+# $FreeBSD: head/lang/julia/Makefile 428982 2016-12-20 09:30:25Z lwhsu $
 
 PORTNAME=	julia
 PORTVERSION=	0.5.0
@@ -8,7 +8,7 @@ CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
-COMMENT=	Julia programming Language: A fresh approach to technical computing
+COMMENT=	Julia Language: A fresh approach to technical computing
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
@@ -61,7 +61,7 @@ DESKTOP_DESC=	Install icon, .desktop and appdata file
 DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
 
-do-configure:
+post-configure:
 	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
 		${FILESDIR}/check_openblas.c
 	${WRKSRC}/check_openblas && ( \
