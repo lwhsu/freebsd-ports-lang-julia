@@ -1,5 +1,5 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
-# $FreeBSD: head/lang/julia/Makefile 428982 2016-12-20 09:30:25Z lwhsu $
+# $FreeBSD: head/lang/julia/Makefile 429361 2016-12-24 14:57:10Z amdmi3 $
 
 PORTNAME=	julia
 PORTVERSION=	0.5.0
@@ -25,7 +25,9 @@ BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 
 ONLY_FOR_ARCHS=	amd64
 
-USES=	gmake compiler:c++11-lib fortran
+BROKEN_FreeBSD_9=	does not build (fatal error: 'cmath' file not found)
+
+USES=		gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
 
 WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}
