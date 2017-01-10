@@ -41,7 +41,7 @@ MAKE_ARGS+=	prefix=${PREFIX} JCXXFLAGS="${CXXFLAGS}" \
 		FORCE_ASSERTIONS=${FORCE_ASSERTIONS} \
 		USE_GPL_LIBS=${USE_GPL_LIBS}
 
-OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS GPL_LIBS DESKTOP
+OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS GPL_LIBS DESKTOP NATIVE
 OPTIONS_SUB=	yes
 
 DEBUG_VARS=	FORCE_ASSERTIONS=1 \
@@ -62,6 +62,19 @@ GPL_LIBS_VARS=	USE_GPL_LIBS=1
 DESKTOP_DESC=	Install icon, .desktop and appdata file
 DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
+
+.include <bsd.port.options.mk>
+
+NATIVE_DESC=		Build with native CPU jit tuning
+.if ${PORT_OPTIONS:MNATIVE}
+MAKE_ARGS+=	JULIA_CPU_TARGET=native
+.else
+.if ${ARCH} == "amd64"
+MAKE_ARGS+=	JULIA_CPU_TARGET=x86-64
+.else
+MAKE_ARGS+=	JULIA_CPU_TARGET=generic
+.endif
+.endif
 
 post-configure:
 	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
