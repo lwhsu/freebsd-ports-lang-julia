@@ -1,5 +1,5 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
-# $FreeBSD: head/lang/julia/Makefile 429361 2016-12-24 14:57:10Z amdmi3 $
+# $FreeBSD$
 
 PORTNAME=	julia
 PORTVERSION=	0.5.0
@@ -25,9 +25,7 @@ BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf
 
-ONLY_FOR_ARCHS=	amd64
-
-BROKEN_FreeBSD_9=	does not build (fatal error: 'cmath' file not found)
+ONLY_FOR_ARCHS=	amd64 i386
 
 USES=		gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
@@ -73,9 +71,15 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=native
 .else
 .if ${ARCH} == "amd64"
 MAKE_ARGS+=	JULIA_CPU_TARGET=x86-64
+.elif ${ARCH} == "i386"
+MAKE_ARGS+=	JULIA_CPU_TARGET=pentium4
 .else
 MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .endif
+.endif
+
+.if ${ARCH} == "i386"
+EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
 
 post-configure:
