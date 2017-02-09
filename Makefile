@@ -16,7 +16,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libutf8proc.so:textproc/utf8proc \
-		libopenblas.so:math/openblas \
+		libopenblasp.so:math/openblas \
 		libgit2.so:devel/libgit2 \
 		libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
