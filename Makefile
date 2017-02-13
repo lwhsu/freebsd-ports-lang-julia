@@ -21,7 +21,7 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
 		libpcre2-8.so:devel/pcre2 \
-		libarpack.so:math/arpack
+		libarpack.so:math/arpack-ng
 BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf
