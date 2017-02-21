@@ -1,14 +1,3 @@
-commit 22790b1aa40c0bc1e735fff65a07882e257f0050
-Author: Iblis Lin <iblis@hs.ntnu.edu.tw>
-Date:   Sun Feb 19 15:47:29 2017 +0800
-
-    libdl: implement dllist on FreeBSD
-    
-    DL_ITERATE_PHDR(3):
-    https://www.freebsd.org/cgi/man.cgi?query=dl_iterate_phdr&apropos=0&sektion=3&manpath=FreeBSD+12-current&arch=default&format=html
-
-diff --git base/libdl.jl.orig base/libdl.jl
-index a9e6568470..e89c8a5a8d 100644
 --- base/libdl.jl.orig
 +++ base/libdl.jl
 @@ -205,6 +205,31 @@ if is_linux()
@@ -17,7 +6,7 @@ index a9e6568470..e89c8a5a8d 100644
  
 +if is_bsd() && !is_apple()
 +    # DL_ITERATE_PHDR(3) on freebsd
-+    struct dl_phdr_info
++    immutable dl_phdr_info
 +        # Base address of object
 +        addr::Cuint
 +
