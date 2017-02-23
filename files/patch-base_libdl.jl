@@ -1,6 +1,6 @@
---- base/libdl.jl.orig
+--- base/libdl.jl.orig	2016-09-20 02:54:21 UTC
 +++ base/libdl.jl
-@@ -205,6 +205,31 @@ if is_linux()
+@@ -198,6 +198,31 @@ if is_linux()
      end
  end # linux-only
  
@@ -32,7 +32,7 @@
  function dllist()
      dynamic_libraries = Array{AbstractString}(0)
  
-@@ -228,6 +253,13 @@ function dllist()
+@@ -221,6 +246,13 @@ function dllist()
          ccall(:jl_dllist, Cint, (Any,), dynamic_libraries)
      end
  
