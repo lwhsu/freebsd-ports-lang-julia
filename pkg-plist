@@ -29,6 +29,8 @@ include/julia/uv-threadpool.h
 include/julia/uv-unix.h
 include/julia/uv-version.h
 include/julia/uv.h
+%%ARPACK%%lib/julia/libarpack.so
+%%ARPACK%%lib/julia/libarpack.so.2
 lib/julia/libccalltest.so
 lib/julia/libdSFMT.so
 lib/julia/libopenspecfun.so

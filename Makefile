@@ -4,7 +4,7 @@
 PORTNAME=	julia
 PORTVERSION=	0.5.0
 DISTVERSIONSUFFIX=	-full
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
 
@@ -20,8 +20,7 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libgit2.so:devel/libgit2 \
 		libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
-		libpcre2-8.so:devel/pcre2 \
-		libarpack.so:math/arpack-ng
+		libpcre2-8.so:devel/pcre2
 BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf
@@ -43,7 +42,11 @@ MAKE_ARGS+=	prefix=${PREFIX} JCXXFLAGS="${CXXFLAGS}" \
 		USE_GPL_LIBS=${USE_GPL_LIBS}
 
 OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS GPL_LIBS DESKTOP NATIVE
+OPTIONS_GROUP=	PRIVATE
+OPTIONS_GROUP_PRIVATE=	ARPACK
 OPTIONS_SUB=	yes
+
+PRIVATE_DESC=	Build self-shipped private depends
 
 DEBUG_VARS=	FORCE_ASSERTIONS=1 \
 		ALL_TARGET=all
@@ -77,6 +80,14 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=pentium4
 .else
 MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .endif
+.endif
+
+ARPACK_DESC=	Build self-shipped private arpack-ng
+.if ${PORT_OPTIONS:MARPACK}
+MAKE_ARGS+=	USE_SYSTEM_ARPACK=0
+.else
+MAKE_ARGS+=	USE_SYSTEM_ARPACK=1
+LIB_DEPENDS+=	libarpack.so:math/arpack-ng
 .endif
 
 .if ${ARCH} == "i386"

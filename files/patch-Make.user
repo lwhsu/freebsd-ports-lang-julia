@@ -1,7 +1,6 @@
---- Make.user.orig	2016-12-17 12:39:14 UTC
+--- Make.user.orig	2017-02-26 09:48:03 UTC
 +++ Make.user
 @@ -0,0 +1,25 @@
-+USE_SYSTEM_ARPACK=	1
 +USE_SYSTEM_BLAS=	1
 +USE_SYSTEM_GMP=		1
 +USE_SYSTEM_LAPACK=	1
