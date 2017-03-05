@@ -59,8 +59,7 @@ EXAMPLES_VARS=	INSTALL_TARGET+=install-examples
 
 GPL_LIBS_DESC=	Build with GPL libs: FFTW and SUITESPARSE
 GPL_LIBS_LIB_DEPENDS=	libfftw3.so:math/fftw3 \
-			libfftw3f.so:math/fftw3-float \
-			libumfpack.so:math/suitesparse
+			libfftw3f.so:math/fftw3-float
 GPL_LIBS_VARS=	USE_GPL_LIBS=1
 
 DESKTOP_DESC=	Install icon, .desktop and appdata file
@@ -88,6 +87,10 @@ MAKE_ARGS+=	USE_SYSTEM_ARPACK=0
 .else
 MAKE_ARGS+=	USE_SYSTEM_ARPACK=1
 LIB_DEPENDS+=	libarpack.so:math/arpack-ng
+.endif
+
+.if ${PORT_OPTIONS:MGPL_LIBS}
+MAKE_ARGS+=	USE_SYSTEM_SUITESPARSE=0
 .endif
 
 .if ${ARCH} == "i386"

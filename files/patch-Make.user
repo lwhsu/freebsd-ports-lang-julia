@@ -1,6 +1,6 @@
 --- Make.user.orig	2017-02-26 09:48:03 UTC
 +++ Make.user
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +USE_SYSTEM_BLAS=	1
 +USE_SYSTEM_GMP=		1
 +USE_SYSTEM_LAPACK=	1
@@ -18,7 +18,6 @@
 +LLVM_CONFIG=	llvm-config38
 +
 +USE_SYSTEM_FFTW=	1
-+USE_SYSTEM_SUITESPARSE=	1
 +
 +LIBBLAS=	-lopenblasp -L$(LOCALBASE)/lib
 +LIBBLASNAME=	libopenblasp
