@@ -20,7 +20,7 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
 		libpcre2-8.so:devel/pcre2
-BUILD_DEPENDS=	llvm-config38:devel/llvm38 \
+BUILD_DEPENDS=	llvm-config39:devel/llvm39 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf
 

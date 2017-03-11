@@ -15,7 +15,7 @@
 +USE_SYSTEM_PCRE=	1
 +USE_SYSTEM_UTF8PROC=	1
 +
-+LLVM_CONFIG=	llvm-config38
++LLVM_CONFIG=	llvm-config39
 +
 +USE_SYSTEM_FFTW=	1
 +
