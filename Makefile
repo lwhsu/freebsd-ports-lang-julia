@@ -59,11 +59,17 @@ EXAMPLES_VARS=	INSTALL_TARGET+=install-examples
 GPL_LIBS_DESC=	Build with GPL libs: FFTW and SUITESPARSE
 GPL_LIBS_LIB_DEPENDS=	libfftw3.so:math/fftw3 \
 			libfftw3f.so:math/fftw3-float
+GPL_LIBS_MAKE_ARGS=	USE_SYSTEM_SUITESPARSE=0
 GPL_LIBS_VARS=	USE_GPL_LIBS=1
 
 DESKTOP_DESC=	Install icon, .desktop and appdata file
 DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
+
+ARPACK_DESC=	Build self-shipped private arpack-ng
+ARPACK_MAKE_ARGS=	USE_SYSTEM_ARPACK=0
+ARPACK_LIB_DEPENDS_OFF=	libarpack.so:math/arpack-ng
+ARPACK_MAKE_ARGS_OFF=	USE_SYSTEM_ARPACK=1
 
 .include <bsd.port.options.mk>
 
@@ -78,18 +84,6 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=pentium4
 .else
 MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .endif
-.endif
-
-ARPACK_DESC=	Build self-shipped private arpack-ng
-.if ${PORT_OPTIONS:MARPACK}
-MAKE_ARGS+=	USE_SYSTEM_ARPACK=0
-.else
-MAKE_ARGS+=	USE_SYSTEM_ARPACK=1
-LIB_DEPENDS+=	libarpack.so:math/arpack-ng
-.endif
-
-.if ${PORT_OPTIONS:MGPL_LIBS}
-MAKE_ARGS+=	USE_SYSTEM_SUITESPARSE=0
 .endif
 
 .if ${ARCH} == "i386"
