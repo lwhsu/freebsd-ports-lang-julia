@@ -1,4 +1,6 @@
---- Make.inc.orig	2016-09-20 02:54:21 UTC
+diff --git Make.inc Make.inc
+index 6dff47ebda..b87b76d38f 100644
+--- Make.inc
 +++ Make.inc
 @@ -128,12 +128,7 @@ endif
  # disable automatic Makefile rules
@@ -40,7 +42,7 @@
  endif
  
  STDLIBCPP_FLAG :=
-@@ -393,14 +388,14 @@ SHIPFLAGS := -O3 -ggdb2 -falign-function
+@@ -393,14 +388,14 @@ SHIPFLAGS := -O3 -ggdb2 -falign-functions
  endif
  
  ifeq ($(USECLANG),1)
@@ -58,7 +60,7 @@
  ifeq ($(OS), Darwin)
  ifeq ($(USE_LIBCPP), 1)
  CC += -stdlib=libc++ -mmacosx-version-min=10.7
-@@ -832,7 +827,7 @@ endif
+@@ -833,7 +828,7 @@ endif
  
  ifeq ($(USE_SYSTEM_UTF8PROC), 1)
    LIBUTF8PROC := -lutf8proc
