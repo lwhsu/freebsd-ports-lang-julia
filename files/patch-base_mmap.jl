@@ -1,4 +1,4 @@
---- base/mmap.jl.orig	2017-02-23 09:50:38 UTC
+--- base/mmap.jl.orig	2017-05-08 07:00:02 UTC
 +++ base/mmap.jl
 @@ -27,7 +27,7 @@ const PROT_READ     = Cint(1)
  const PROT_WRITE    = Cint(2)

@@ -1,6 +1,4 @@
-diff --git Make.inc Make.inc
-index 6dff47ebda..b87b76d38f 100644
---- Make.inc
+--- Make.inc.orig	2017-05-08 07:00:02 UTC
 +++ Make.inc
 @@ -128,12 +128,7 @@ endif
  # disable automatic Makefile rules

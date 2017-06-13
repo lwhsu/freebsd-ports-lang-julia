@@ -1,4 +1,4 @@
---- ui/Makefile.orig	2016-09-20 02:54:22 UTC
+--- ui/Makefile.orig	2017-05-08 07:00:03 UTC
 +++ ui/Makefile
 @@ -66,10 +66,12 @@ else
  CXXLD := $(LD)

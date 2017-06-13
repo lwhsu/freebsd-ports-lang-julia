@@ -1,4 +1,4 @@
---- base/libdl.jl.orig	2016-09-20 02:54:21 UTC
+--- base/libdl.jl.orig	2017-05-08 07:00:02 UTC
 +++ base/libdl.jl
 @@ -198,6 +198,31 @@ if is_linux()
      end

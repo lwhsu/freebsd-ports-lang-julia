@@ -1,6 +1,4 @@
-diff --git Makefile Makefile
-index faf93661ab..16287ec400 100644
---- Makefile
+--- Makefile.orig	2017-05-08 07:00:02 UTC
 +++ Makefile
 @@ -63,11 +63,6 @@ CLEAN_TARGETS += clean-docdir
  clean-docdir:
