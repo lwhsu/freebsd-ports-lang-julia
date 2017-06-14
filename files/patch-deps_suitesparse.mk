@@ -1,4 +1,4 @@
---- deps/suitesparse.mk.orig	2017-05-08 07:00:02 UTC
+--- deps/suitesparse.mk.orig	2016-09-20 02:54:21 UTC
 +++ deps/suitesparse.mk
 @@ -93,7 +93,7 @@ install-suitesparse: $(SUITESPARSE_OBJ_T
  # SUITESPARSE WRAPPER

@@ -1,4 +1,4 @@
---- src/Makefile.orig	2017-05-08 07:00:03 UTC
+--- src/Makefile.orig	2017-03-06 03:32:23 UTC
 +++ src/Makefile
 @@ -9,7 +9,7 @@ override CFLAGS += $(JCFLAGS)
  ifeq ($(LLVM_VER),3.3)

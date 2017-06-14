@@ -1,4 +1,4 @@
---- base/Terminals.jl.orig	2017-05-08 07:00:02 UTC
+--- base/Terminals.jl.orig	2017-02-19 14:49:03 UTC
 +++ base/Terminals.jl
 @@ -156,7 +156,7 @@ else
      function hascolor(t::TTYTerminal)
