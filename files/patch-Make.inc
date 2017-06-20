@@ -58,12 +58,3 @@
  ifeq ($(OS), Darwin)
  ifeq ($(USE_LIBCPP), 1)
  CC += -stdlib=libc++ -mmacosx-version-min=10.7
-@@ -833,7 +828,7 @@ endif
- 
- ifeq ($(USE_SYSTEM_UTF8PROC), 1)
-   LIBUTF8PROC := -lutf8proc
--  UTF8PROC_INC := /usr/include
-+  UTF8PROC_INC := $(LOCALBASE)/include
- else
-   LIBUTF8PROC := $(build_libdir)/libutf8proc.a
-   UTF8PROC_INC := $(build_includedir)
