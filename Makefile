@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	julia
-PORTVERSION=	0.5.2
+PORTVERSION=	0.6.0
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
@@ -20,7 +20,7 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
 		libpcre2-8.so:devel/pcre2
-BUILD_DEPENDS=	llvm-config39:devel/llvm39 \
+BUILD_DEPENDS=	llvm-config40:devel/llvm40 \
 		pcre2-config:devel/pcre2 \
 		patchelf:sysutils/patchelf
 
