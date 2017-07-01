@@ -1,6 +1,6 @@
---- Make.user.orig	2017-02-26 09:48:03 UTC
+--- Make.user.orig	2017-06-24 14:30:08 UTC
 +++ Make.user
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,24 @@
 +USE_SYSTEM_BLAS=	1
 +USE_SYSTEM_GMP=		1
 +USE_SYSTEM_LAPACK=	1
@@ -24,3 +24,4 @@
 +
 +LIBLAPACK=	$(LIBBLAS)
 +LIBLAPACKNAME=	$(LIBBLASNAME)
++USE_BLAS64=0
