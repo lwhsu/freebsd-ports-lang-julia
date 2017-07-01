@@ -44,11 +44,15 @@ MAKE_ARGS+=	prefix=${PREFIX} JCXXFLAGS="${CXXFLAGS}" \
 		USE_GPL_LIBS=${USE_GPL_LIBS}
 
 OPTIONS_DEFINE=	EXAMPLES DEBUG DOCS GPL_LIBS DESKTOP NATIVE
+OPTIONS_DEFAULT=	SYSLIBM
 OPTIONS_GROUP=	PRIVATE
 OPTIONS_GROUP_PRIVATE=	ARPACK
+OPTIONS_SINGLE=	LIBM
+OPTIONS_SINGLE_LIBM=	SYSLIBM OPENLIBM
 OPTIONS_SUB=	yes
 
 PRIVATE_DESC=	Build self-shipped private depends
+LIBM_DESC=	Math library implementation
 
 DEBUG_VARS=	FORCE_ASSERTIONS=1 \
 		ALL_TARGET=all
@@ -65,7 +69,7 @@ GPL_LIBS_LIB_DEPENDS=	libfftw3.so:math/fftw3 \
 GPL_LIBS_MAKE_ARGS=	USE_SYSTEM_SUITESPARSE=0
 GPL_LIBS_VARS=	USE_GPL_LIBS=1
 
-DESKTOP_DESC=	Install icon, .desktop and appdata file
+DESKTOP_DESC=	Install icon, .desktop and appdata files
 DESKTOP_VARS=	INSTALL_TARGET+=install-desktop \
 		INSTALLS_ICONS=yes
 
@@ -73,6 +77,13 @@ ARPACK_DESC=	Build self-shipped private arpack-ng
 ARPACK_MAKE_ARGS=	USE_SYSTEM_ARPACK=0
 ARPACK_LIB_DEPENDS_OFF=	libarpack.so:math/arpack-ng
 ARPACK_MAKE_ARGS_OFF=	USE_SYSTEM_ARPACK=1
+
+SYSLIBM_DESC=	Build with system libm
+SYSLIBM_MAKE_ARGS=	USE_SYSTEM_LIBM=1
+
+OPENLIBM_DESC=	Build with OpenLibm (math/openlibm)
+OPENLIBM_MAKE_ARGS=	USE_SYSTEM_OPENLIBM=1
+OPENLIBM_LIB_DEPENDS=	libopenlibm.so:math/openlibm
 
 .include <bsd.port.options.mk>
 
@@ -87,7 +98,7 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=pentium4
 .else
 MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .endif
-.endif
+.endif  # .if ${PORT_OPTIONS:MNATIVE}
 
 .if ${ARCH} == "i386"
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
