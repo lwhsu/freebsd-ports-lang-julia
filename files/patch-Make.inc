@@ -40,7 +40,7 @@
  endif
  
  STDLIBCPP_FLAG :=
-@@ -403,14 +398,14 @@ SHIPFLAGS := -O3 -ggdb2 -falign-function
+@@ -403,14 +398,14 @@ SHIPFLAGS := -O3 -ggdb2 -falign-functions
  endif
  
  ifeq ($(USECLANG),1)
