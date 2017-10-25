@@ -375,6 +375,7 @@ lib/libjulia.so.%%SOVERSION%%
 %%DATADIR%%/test/checked.jl
 %%DATADIR%%/test/choosetests.jl
 %%DATADIR%%/test/cmdlineargs.jl
+%%DATADIR%%/test/codegen.jl
 %%DATADIR%%/test/combinatorics.jl
 %%DATADIR%%/test/compile.jl
 %%DATADIR%%/test/complex.jl
@@ -391,6 +392,7 @@ lib/libjulia.so.%%SOVERSION%%
 %%DATADIR%%/test/dates/ranges.jl
 %%DATADIR%%/test/dates/rounding.jl
 %%DATADIR%%/test/dates/types.jl
+%%DATADIR%%/test/deprecation_exec.jl
 %%DATADIR%%/test/dict.jl
 %%DATADIR%%/test/dimensionful.jl
 %%DATADIR%%/test/distributed.jl
