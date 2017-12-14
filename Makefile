@@ -28,7 +28,7 @@ ONLY_FOR_ARCHS=	amd64 i386
 USES=		gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
 
-WRKSRC=	${WRKDIR}/julia-${PORTVERSION}
+WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 ALL_TARGET=	default
 INSTALL_TARGET=	install
