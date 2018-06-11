@@ -28,7 +28,7 @@ BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 USES=		gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
 
-WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}
+WRKSRC=	${WRKDIR}/${PORTNAME}
 
 ALL_TARGET=	default
 INSTALL_TARGET=	install
