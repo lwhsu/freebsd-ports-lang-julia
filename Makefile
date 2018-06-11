@@ -3,6 +3,7 @@
 
 PORTNAME=	julia
 PORTVERSION=	0.6.2
+PORTREVISION=	2
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
@@ -13,6 +14,8 @@ COMMENT=	Julia Language: A fresh approach to technical computing
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
+ONLY_FOR_ARCHS=	amd64 i386
+
 LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libgit2.so:devel/libgit2 \
 		libgmp.so:math/gmp \
@@ -22,8 +25,6 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libutf8proc.so:textproc/utf8proc
 BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 		pcre2-config:devel/pcre2
-
-ONLY_FOR_ARCHS=	amd64 i386
 
 USES=		gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
