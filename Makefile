@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	julia
-PORTVERSION=	0.7.0
+PORTVERSION=	1.0.0
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
