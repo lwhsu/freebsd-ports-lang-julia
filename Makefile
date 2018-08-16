@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	julia
-PORTVERSION=	0.7.0
+PORTVERSION=	1.0.0
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
@@ -34,8 +34,7 @@ ALL_TARGET=	default
 INSTALL_TARGET=	install
 TEST_TARGET=	test
 
-PLIST_SUB=	VERSION="${PORTVERSION:R}" \
-		SOVERSION="${PORTVERSION}"
+PLIST_SUB=	VERSION="${PORTVERSION:R}"
 
 CXXFLAGS+=	-stdlib=libc++ -std=c++11
 MAKE_ARGS+=	prefix=${PREFIX} \
