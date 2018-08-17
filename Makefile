@@ -26,7 +26,7 @@ BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 		pcre2-config:devel/pcre2 \
 		cmake:devel/cmake
 
-USES=		gmake compiler:c++11-lib fortran
+USES=		gmake compiler:c++11-lib fortran python:2.7,build
 USE_LDCONFIG=	yes
 
 WRKSRC=	${WRKDIR}/${PORTNAME}
