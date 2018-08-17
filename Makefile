@@ -23,7 +23,8 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libpcre2-8.so:devel/pcre2 \
 		libutf8proc.so:textproc/utf8proc
 BUILD_DEPENDS=	patchelf:sysutils/patchelf \
-		pcre2-config:devel/pcre2
+		pcre2-config:devel/pcre2 \
+		cmake:devel/cmake
 
 USES=		gmake compiler:c++11-lib fortran
 USE_LDCONFIG=	yes
