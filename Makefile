@@ -25,7 +25,7 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 		pcre2-config:devel/pcre2
 
-USES=		gmake compiler:c++11-lib fortran
+USES=		gmake compiler:c++11-lib fortran cmake
 USE_LDCONFIG=	yes
 
 WRKSRC=	${WRKDIR}/${PORTNAME}
