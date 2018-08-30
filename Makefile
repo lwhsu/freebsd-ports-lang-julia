@@ -18,9 +18,11 @@ ONLY_FOR_ARCHS=	amd64 i386
 LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libgit2.so:devel/libgit2 \
 		libgmp.so:math/gmp \
+		libmbedtls.so:security/mbedtls \
 		libmpfr.so:math/mpfr \
 		libopenblasp.so:math/openblas \
 		libpcre2-8.so:devel/pcre2 \
+		libssh2.so:security/libssh2 \
 		libutf8proc.so:textproc/utf8proc
 BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 		pcre2-config:devel/pcre2 \
@@ -47,7 +49,9 @@ MAKE_ARGS+=	prefix=${PREFIX} \
 		USE_SYSTEM_GMP=1 \
 		USE_SYSTEM_LAPACK=1 \
 		USE_SYSTEM_LIBGIT2=1 \
+		USE_SYSTEM_LIBSSH2=1 \
 		USE_SYSTEM_LIBUV=0 \
+		USE_SYSTEM_MBEDTLS=1 \
 		USE_SYSTEM_MPFR=1 \
 		USE_SYSTEM_PATCHELF=1 \
 		USE_SYSTEM_PCRE=1 \
