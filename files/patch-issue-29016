@@ -1,5 +1,5 @@
 diff --git contrib/generate_precompile.jl contrib/generate_precompile.jl
-index 6788558275..09053b3192 100644
+index 6788558275..0bbb3b8065 100644
 --- contrib/generate_precompile.jl
 +++ contrib/generate_precompile.jl
 @@ -8,7 +8,7 @@ if !isdefined(Base, :uv_eventloop)
@@ -11,15 +11,7 @@ index 6788558275..09053b3192 100644
  
  CTRL_C = '\x03'
  UP_ARROW = "\e[A"
-@@ -35,6 +35,7 @@ cd("complet_path\t\t$CTRL_C
- julia_cmd() = (julia = joinpath(Sys.BINDIR, Base.julia_exename()); `$julia`)
- have_repl =  haskey(Base.loaded_modules,
-                     Base.PkgId(Base.UUID("3fa0cd96-eef1-5676-8a61-b3b8758bbffb"), "REPL"))
-+have_repl = false
- Pkg = get(Base.loaded_modules,
-           Base.PkgId(Base.UUID("44cfe95a-1eb2-52ea-b672-e2afdf69b78f"), "Pkg"),
-           nothing)
-@@ -43,6 +44,12 @@ if Pkg !== nothing
+@@ -43,6 +43,12 @@ if Pkg !== nothing
      precompile_script *= Pkg.precompile_script
  end
  
@@ -32,7 +24,7 @@ index 6788558275..09053b3192 100644
  function generate_precompile_statements()
      start_time = time()
  
-@@ -62,82 +69,108 @@ function generate_precompile_statements()
+@@ -62,82 +68,108 @@ function generate_precompile_statements()
          empty!(DEPOT_PATH)
      end
  
