@@ -6,6 +6,7 @@ PORTVERSION=	0.7.0
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
+PKGNAMESUFFIX=	07
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
 COMMENT=	Julia Language: A fresh approach to technical computing
