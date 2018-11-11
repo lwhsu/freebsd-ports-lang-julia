@@ -42,7 +42,6 @@ lib/julia/libdSFMT.so
 lib/julia/sys.so
 %%DEBUG%%lib/julia/sys-debug.so
 %%DEBUG%%lib/libjulia-debug.so
-%%DEBUG%%lib/libjulia-debug.so.%%VERSION%%
 %%DEBUG%%lib/libjulia-debug.so.%%SOVERSION%%
 %%GPL_LIBS%%lib/julia/libamd.so
 %%GPL_LIBS%%lib/julia/libcamd.so
