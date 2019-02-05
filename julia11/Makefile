@@ -20,7 +20,6 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libgmp.so:math/gmp \
 		libmbedtls.so:security/mbedtls \
 		libmpfr.so:math/mpfr \
-		libopenblasp.so:math/openblas \
 		libpcre2-8.so:devel/pcre2 \
 		libssh2.so:security/libssh2 \
 		libutf8proc.so:textproc/utf8proc
@@ -47,7 +46,7 @@ MAKE_ARGS+=	prefix=${PREFIX}/${INSTALLDIR} \
 		JCXXFLAGS="${CXXFLAGS}" \
 		FORCE_ASSERTIONS=${FORCE_ASSERTIONS} \
 		USE_GPL_LIBS=${USE_GPL_LIBS} \
-		USE_SYSTEM_BLAS=1 \
+		USE_SYSTEM_BLAS=0 \
 		USE_SYSTEM_CURL=1 \
 		USE_SYSTEM_GMP=1 \
 		USE_SYSTEM_LAPACK=1 \
@@ -59,6 +58,7 @@ MAKE_ARGS+=	prefix=${PREFIX}/${INSTALLDIR} \
 		USE_SYSTEM_PATCHELF=1 \
 		USE_SYSTEM_PCRE=1 \
 		USE_SYSTEM_UTF8PROC=1 \
+		OPENBLAS_DYNAMIC_ARCH=1 \
 		NO_GIT=1
 
 OPTIONS_DEFINE=	DEBUG DOCS GPL_LIBS DESKTOP NATIVE
@@ -111,20 +111,18 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
 
-post-configure:
-	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
-		${FILESDIR}/check_openblas.c
-	${WRKSRC}/check_openblas && ( \
-		echo "USE_BLAS64=1" >> ${WRKSRC}/Make.user \
-	) || ( \
-		echo "USE_BLAS64=0" >> ${WRKSRC}/Make.user \
-	)
+post-patch:
+	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME} build\"" >> ${WRKSRC}/Make.user
+	# unset ARCH for auto-detection
+	# Julia build script uses the name x86_86/x86, which are different from ports framework
+	echo "ARCH=" >> ${WRKSRC}/Make.user
+	cp ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
 
 post-install:
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
 .if ${PORT_OPTIONS:MDEBUG}
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia-debug ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-debug
 .endif
-	# ${MV} ${STAGEDIR}
+	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/man/man1/julia.1 ${STAGEDIR}${PREFIX}/man/man1/${PORTNAME}.1
 
 .include <bsd.port.mk>
