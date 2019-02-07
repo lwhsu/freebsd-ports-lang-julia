@@ -149,5 +149,6 @@ post-install-DEBUG-on:
 
 post-install-DOCS-on:
 	${MV} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc/julia ${STAGEDIR}${PREFIX}/share/doc/${PORTNAME}
+	${RMDIR} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc
 
 .include <bsd.port.mk>
