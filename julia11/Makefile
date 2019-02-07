@@ -116,14 +116,6 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
 
-# .if ${PORT_OPTIONS:MOPENBLAS}
-# 		# OPENBLAS_DYNAMIC_ARCH=1
-# pre-build:
-# 	( cd ${WRKSRC} && \
-# 	    ${SETENV} AR="${AR}" FC="${FC}" FFLAGS="${FFLAGS}" FCFLAGS="${FCFLAGS}" LDFLAGS="${LDFLAGS}" \
-# 		${MAKE_CMD} -C deps ${_MAKE_JOBS} ${MAKE_ARGS}  compile-openblas )
-# .endif
-
 post-patch:
 	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME} build\"" >> ${WRKSRC}/Make.user
 	# unset ARCH for auto-detection
