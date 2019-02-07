@@ -153,6 +153,6 @@ post-install-DOCS-on:
 
 post-install-DOCS-off:
 	# remove empty dir
-	${RM} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc
 
 .include <bsd.port.mk>
