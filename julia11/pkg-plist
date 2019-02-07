@@ -61,6 +61,7 @@ bin/julia11
 %%JULIA%%/lib/libjulia.so
 %%JULIA%%/lib/libjulia.so.1
 %%JULIA%%/lib/libjulia.so.%%VERSION%%
+man/man1/julia11.1.gz
 %%JULIA%%/man/man1/julia.1.gz
 %%DESKTOP%%%%JULIA%%/share/appdata/julia.appdata.xml
 %%DESKTOP%%%%JULIA%%/share/applications/julia.desktop
