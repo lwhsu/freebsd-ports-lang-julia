@@ -123,10 +123,10 @@ post-patch:
 	echo "ARCH=" >> ${WRKSRC}/Make.user
 
 post-patch-OPENBLAS-on:
-	cp ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
+	${CP} ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
 
 post-patch-OPENBLAS-off:
-	echo "LIBBLAS= -lopenblasp -L$(LOCALBASE)/lib" >> ${WRKSRC}/Make.user
+	echo "LIBBLAS= -lopenblasp -L${LOCALBASE}/lib" >> ${WRKSRC}/Make.user
 	echo "LIBBLASNAME=libopenblasp" >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACK= $$(LIBBLAS)' >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACKNAME= $$(LIBBLASNAME)' >> ${WRKSRC}/Make.user
