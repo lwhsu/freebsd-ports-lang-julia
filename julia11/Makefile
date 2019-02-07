@@ -122,14 +122,16 @@ post-patch:
 	# Julia build script uses the name x86_86/x86, which are different from ports framework
 	echo "ARCH=" >> ${WRKSRC}/Make.user
 
-.if ${PORT_OPTIONS:MOPENBLAS}
+post-patch-OPENBLAS-on:
 	cp ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
-.else
+
+post-patch-OPENBLAS-off:
 	echo "LIBBLAS= -lopenblasp -L$(LOCALBASE)/lib" >> ${WRKSRC}/Make.user
 	echo "LIBBLASNAME=libopenblasp" >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACK= $$(LIBBLAS)' >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACKNAME= $$(LIBBLASNAME)' >> ${WRKSRC}/Make.user
 
+post-configure-OPENBLAS-off:
 	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
 		${FILESDIR}/check_openblas.c
 	${WRKSRC}/check_openblas && ( \
@@ -137,14 +139,15 @@ post-patch:
 	) || ( \
 		echo "USE_BLAS64=0" >> ${WRKSRC}/Make.user \
 	)
-.endif
-
 
 post-install:
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
-.if ${PORT_OPTIONS:MDEBUG}
-	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia-debug ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-debug
-.endif
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/man/man1/julia.1 ${STAGEDIR}${PREFIX}/man/man1/${PORTNAME}.1
+
+post-install-DEBUG-on:
+	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia-debug ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-debug
+
+post-install-DOCS-on:
+	${MV} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc/julia ${STAGEDIR}${PREFIX}/share/doc/${PORTNAME}
 
 .include <bsd.port.mk>
