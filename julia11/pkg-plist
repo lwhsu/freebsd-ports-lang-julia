@@ -1,6 +1,6 @@
 bin/julia11
-%%DEBUG%%bin/julia11-debug
 %%JULIA%%/bin/julia
+%%DEBUG%%bin/julia11-debug
 %%DEBUG%%%%JULIA%%/bin/julia-debug
 %%JULIA%%/etc/julia/startup.jl
 %%JULIA%%/include/julia/END.h
@@ -58,6 +58,7 @@ bin/julia11
 %%GPL_LIBS%%%%JULIA%%/lib/julia/libsuitesparse_wrapper.so
 %%GPL_LIBS%%%%JULIA%%/lib/julia/libsuitesparseconfig.so
 %%GPL_LIBS%%%%JULIA%%/lib/julia/libumfpack.so
+%%OPENBLAS%%%%JULIA%%/lib/julia/libopenblas64_.so
 %%JULIA%%/lib/libjulia.so
 %%JULIA%%/lib/libjulia.so.1
 %%JULIA%%/lib/libjulia.so.%%VERSION%%
@@ -852,4 +853,4 @@ man/man1/julia11.1.gz
 %%JULIA%%/share/julia/test/vecelement.jl
 %%JULIA%%/share/julia/test/version.jl
 %%JULIA%%/share/julia/test/worlds.jl
-%%PORTDOCS%%@dir %%JULIA%%/share/doc/julia
+%%PORTDOCS%%@dir %%DOCSDIR%%
