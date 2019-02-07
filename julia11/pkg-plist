@@ -853,4 +853,3 @@ man/man1/julia11.1.gz
 %%JULIA%%/share/julia/test/vecelement.jl
 %%JULIA%%/share/julia/test/version.jl
 %%JULIA%%/share/julia/test/worlds.jl
-%%PORTDOCS%%@dir %%DOCSDIR%%
