@@ -1,6 +1,6 @@
---- Make.inc.orig	2018-07-31 20:35:41 UTC
+--- Make.inc.orig	2019-01-13 00:25:11 UTC
 +++ Make.inc
-@@ -130,12 +130,7 @@ endif
+@@ -134,12 +134,7 @@ endif
  # disable automatic Makefile rules
  .SUFFIXES:
  
@@ -13,7 +13,7 @@
  
  # Julia's Semantic Versioning system labels the three decimal places in a version number as
  # the major, minor and patch versions.  Typically the major version would be incremented
-@@ -185,7 +180,7 @@ libdir := $(prefix)/lib
+@@ -189,7 +184,7 @@ libdir := $(prefix)/lib
  libexecdir := $(prefix)/libexec
  datarootdir := $(prefix)/share
  docdir := $(datarootdir)/doc/julia
@@ -22,7 +22,7 @@
  man1dir := $(mandir)/man1
  includedir := $(prefix)/include
  sysconfdir := $(prefix)/etc
-@@ -198,7 +193,7 @@ build_depsbindir := $(build_prefix)/tools
+@@ -202,7 +197,7 @@ build_depsbindir := $(build_prefix)/tools
  build_libdir := $(build_prefix)/lib
  build_libexecdir := $(build_prefix)/libexec
  build_datarootdir := $(build_prefix)/share
@@ -31,7 +31,7 @@
  build_man1dir := $(build_mandir)/man1
  build_includedir := $(build_prefix)/include
  build_sysconfdir := $(build_prefix)/etc
-@@ -364,7 +359,7 @@ endif
+@@ -367,7 +362,7 @@ endif
  ifeq ($(USEIFC), 1)
  FC := ifort
  else
@@ -40,7 +40,7 @@
  endif
  
  STDLIBCPP_FLAG :=
-@@ -417,8 +412,8 @@ SHIPFLAGS := -O3 -ggdb2 -falign-functions
+@@ -420,8 +415,8 @@ SHIPFLAGS := -O3 -ggdb2 -falign-functions
  endif
  
  ifeq ($(USECLANG),1)

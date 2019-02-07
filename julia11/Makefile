@@ -46,7 +46,6 @@ MAKE_ARGS+=	prefix=${PREFIX}/${INSTALLDIR} \
 		JCXXFLAGS="${CXXFLAGS}" \
 		FORCE_ASSERTIONS=${FORCE_ASSERTIONS} \
 		USE_GPL_LIBS=${USE_GPL_LIBS} \
-		USE_SYSTEM_BLAS=0 \
 		USE_SYSTEM_CURL=1 \
 		USE_SYSTEM_GMP=1 \
 		USE_SYSTEM_LAPACK=1 \
@@ -58,16 +57,17 @@ MAKE_ARGS+=	prefix=${PREFIX}/${INSTALLDIR} \
 		USE_SYSTEM_PATCHELF=1 \
 		USE_SYSTEM_PCRE=1 \
 		USE_SYSTEM_UTF8PROC=1 \
-		OPENBLAS_DYNAMIC_ARCH=1 \
 		NO_GIT=1
 
 OPTIONS_DEFINE=	DEBUG DOCS GPL_LIBS DESKTOP NATIVE
 OPTIONS_DEFAULT=	OPENLIBM
 OPTIONS_GROUP=	PRIVATE
+OPTIONS_GROUP_PRIVATE=	OPENBLAS
 OPTIONS_SINGLE=	LIBM
 OPTIONS_SINGLE_LIBM=	SYSLIBM OPENLIBM
 OPTIONS_SUB=	yes
 
+PRIVATE_DESC=	Build self-shipped private depends
 LIBM_DESC=	Math library implementation
 
 DEBUG_VARS=	FORCE_ASSERTIONS=1 \
@@ -92,6 +92,11 @@ OPENLIBM_DESC=	Build with OpenLibm (math/openlibm)
 OPENLIBM_MAKE_ARGS=	USE_SYSTEM_OPENLIBM=1
 OPENLIBM_LIB_DEPENDS=	libopenlibm.so:math/openlibm
 
+OPENBLAS_DESC=	Private OpenBLAS v0.3.3 with INTERFACE64 enabled
+OPENBLAS_MAKE_ARGS=	USE_SYSTEM_BLAS=0 OPENBLAS_DYNAMIC_ARCH=1
+OPENBLAS_MAKE_ARGS_OFF=	USE_SYSTEM_BLAS=1
+OPENBLAS_LIB_DEPENDS_OFF=	libopenblasp.so:math/openblas
+
 .include <bsd.port.options.mk>
 
 NATIVE_DESC=		Build with native CPU JIT tuning
@@ -111,12 +116,36 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
 
+# .if ${PORT_OPTIONS:MOPENBLAS}
+# 		# OPENBLAS_DYNAMIC_ARCH=1
+# pre-build:
+# 	( cd ${WRKSRC} && \
+# 	    ${SETENV} AR="${AR}" FC="${FC}" FFLAGS="${FFLAGS}" FCFLAGS="${FCFLAGS}" LDFLAGS="${LDFLAGS}" \
+# 		${MAKE_CMD} -C deps ${_MAKE_JOBS} ${MAKE_ARGS}  compile-openblas )
+# .endif
+
 post-patch:
 	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME} build\"" >> ${WRKSRC}/Make.user
 	# unset ARCH for auto-detection
 	# Julia build script uses the name x86_86/x86, which are different from ports framework
 	echo "ARCH=" >> ${WRKSRC}/Make.user
+
+.if ! ${PORT_OPTIONS:MOPENBLAS}
 	cp ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
+	echo "LIBBLAS= -lopenblasp -L$(LOCALBASE)/lib" >> ${WRKSRC}/Make.user
+	echo "LIBBLASNAME=libopenblasp" >> ${WRKSRC}/Make.user
+	echo 'LIBLAPACK= $$(LIBBLAS)' >> ${WRKSRC}/Make.user
+	echo 'LIBLAPACKNAME= $$(LIBBLASNAME)' >> ${WRKSRC}/Make.user
+
+	${CC} ${CFLAGS} -lopenblas ${LDFLAGS} -o ${WRKSRC}/check_openblas \
+		${FILESDIR}/check_openblas.c
+	${WRKSRC}/check_openblas && ( \
+		echo "USE_BLAS64=1" >> ${WRKSRC}/Make.user \
+	) || ( \
+		echo "USE_BLAS64=0" >> ${WRKSRC}/Make.user \
+	)
+.endif
+
 
 post-install:
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
