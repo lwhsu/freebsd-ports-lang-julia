@@ -130,8 +130,9 @@ post-patch:
 	# Julia build script uses the name x86_86/x86, which are different from ports framework
 	echo "ARCH=" >> ${WRKSRC}/Make.user
 
-.if ! ${PORT_OPTIONS:MOPENBLAS}
+.if ${PORT_OPTIONS:MOPENBLAS}
 	cp ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
+.else
 	echo "LIBBLAS= -lopenblasp -L$(LOCALBASE)/lib" >> ${WRKSRC}/Make.user
 	echo "LIBBLASNAME=libopenblasp" >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACK= $$(LIBBLAS)' >> ${WRKSRC}/Make.user
