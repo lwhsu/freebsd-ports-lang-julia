@@ -1,11 +1,12 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
 # $FreeBSD$
 
-PORTNAME=	julia11
+PORTNAME=	julia
 PORTVERSION=	1.1.0
+DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
-DISTNAME=	julia-${PORTVERSION}-full
+PKGNAMESUFFIX=	11
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
 COMMENT=	Julia Language: A fresh approach to technical computing
@@ -34,7 +35,7 @@ USE_LDCONFIG=	yes
 SHEBANG_GLOB=	*.sh
 
 WRKSRC=	${WRKDIR}/julia-${PORTVERSION}
-INSTALLDIR=	julia/${PORTNAME}
+INSTALLDIR=	julia/${PORTNAME}${PKGNAMESUFFIX}
 MANDIRS+=	${PREFIX}/${INSTALLDIR}/man
 
 ALL_TARGET=	default
@@ -77,6 +78,7 @@ DEBUG_VARS=	FORCE_ASSERTIONS=1 \
 		ALL_TARGET=all
 DEBUG_MAKE_ARGS=	BUNDLE_DEBUG_LIBS=1
 
+DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${PKGNAMESUFFIX}
 PORTDOCS=	html
 DOCS_VARS=	INSTALL_TARGET+=install-docs
 
@@ -125,7 +127,7 @@ post-extract:
 	${GMAKE} -C ${WRKSRC}/stdlib install
 
 post-patch:
-	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME} build\"" >> ${WRKSRC}/Make.user
+	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME}${PKGNAMESUFFIX} build\"" >> ${WRKSRC}/Make.user
 	# unset ARCH for auto-detection
 	# Julia build script uses the name x86_86/x86, which are different from ports framework
 	echo "ARCH=" >> ${WRKSRC}/Make.user
@@ -149,8 +151,8 @@ post-configure-OPENBLAS-off:
 	)
 
 post-install:
-	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
-	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/man/man1/julia.1 ${STAGEDIR}${PREFIX}/man/man1/${PORTNAME}.1
+	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia ${STAGEDIR}${PREFIX}/bin/${PORTNAME}${PKGNAMESUFFIX}
+	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/man/man1/julia.1 ${STAGEDIR}${PREFIX}/man/man1/${PORTNAME}${PKGNAMESUFFIX}.1
 
 	# clean up for Pkg3.jl
 .for file in .codecov.yml .travis.yml appveyor.yml bors.toml .gitignore source-extracted
@@ -159,10 +161,10 @@ post-install:
 .endfor
 
 post-install-DEBUG-on:
-	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia-debug ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-debug
+	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia-debug ${STAGEDIR}${PREFIX}/bin/${PORTNAME}${PKGNAMESUFFIX}-debug
 
 post-install-DOCS-on:
-	${MV} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc/julia ${STAGEDIR}${PREFIX}/share/doc/${PORTNAME}
+	${MV} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc/julia ${STAGEDIR}${DOCSDIR}
 	${RMDIR} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc
 
 post-install-DOCS-off:
