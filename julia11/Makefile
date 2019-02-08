@@ -92,7 +92,8 @@ OPENLIBM_DESC=	Build with OpenLibm (math/openlibm)
 OPENLIBM_MAKE_ARGS=	USE_SYSTEM_OPENLIBM=1
 OPENLIBM_LIB_DEPENDS=	libopenlibm.so:math/openlibm
 
-OPENBLAS_DESC=	Private OpenBLAS v0.3.3 with INTERFACE64 enabled
+OPENBLAS_DESC=	Private OpenBLAS v0.3.3\
+		(ports tree: v${:!${MAKE} -C ${PORTSDIR}/math/openblas -V PORTVERSION!})
 OPENBLAS_MAKE_ARGS=	USE_SYSTEM_BLAS=0 OPENBLAS_DYNAMIC_ARCH=1
 OPENBLAS_MAKE_ARGS_OFF=	USE_SYSTEM_BLAS=1
 OPENBLAS_LIB_DEPENDS_OFF=	libopenblasp.so:math/openblas
