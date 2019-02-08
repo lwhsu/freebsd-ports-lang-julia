@@ -1,8 +1,8 @@
-RSYNC=rsync
-RSYNC_FLAGS= -a --progress --delete --exclude=work
+RSYNC=	rsync
+RSYNC_FLAGS=	-a --progress --delete --exclude=work
 
-POUDRIERE=sudo poudriere
-POUDRIERE_FLAGS= -p dev -w
+POUDRIERE=	sudo poudriere
+POUDRIERE_FLAGS=testport -p dev -w
 
 all: julia julia10 julia11
 
@@ -23,16 +23,11 @@ options:
 	sudo ln -sf ${PWD}/options/openblas /usr/local/etc/poudriere.d/openblas-options
 	sudo ln -sf ${PWD}/options/jlall /usr/local/etc/poudriere.d/jlall-options
 
-test-julia10: julia10 options
-.for jail in 120r 120r-i386 112r 112r-i386
-	${POUDRIERE} testport ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia10
-	${POUDRIERE} testport ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia10 -z openblas
-	${POUDRIERE} testport ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia10 -z jlall
-.endfor
+PORTNAME=	${.TARGET:S/test-//}
 
-test-julia11: julia11 options
+test-julia11 test-julia10: ${.TARGET:S/test-//} options
 .for jail in 120r 120r-i386 112r 112r-i386
-	# ${POUDRIERE} testport ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia11
-	${POUDRIERE} testport ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia10 -z openblas
-	${POUDRIERE} testport ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia10 -z jlall
+	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME}
+	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME} -z openblas
+	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME} -z jlall
 .endfor
