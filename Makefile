@@ -21,7 +21,7 @@ options:
 
 PORTNAME=	${.TARGET:S/test-//}
 
-test-julia11 test-julia10: ${.TARGET:S/test-//} options
+test-julia06 test-julia07 test-julia11 test-julia10: ${.TARGET:S/test-//} options
 .for jail in 120r 120r-i386 112r 112r-i386
 	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME}
 	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME} -z openblas
