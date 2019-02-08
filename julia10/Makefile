@@ -1,12 +1,12 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
 # $FreeBSD$
 
-PORTNAME=	julia10
+PORTNAME=	julia
 PORTVERSION=	1.0.3
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
-PKGNAMESUFFIX=	11
+PKGNAMESUFFIX=	10
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
 COMMENT=	Julia Language: A fresh approach to technical computing
