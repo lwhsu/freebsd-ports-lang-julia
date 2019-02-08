@@ -16,8 +16,8 @@ julia06 julia07 julia10 julia11:
 
 .PHONY: options
 options:
-	sudo ln -sf ${PWD}/options/openblas /usr/local/etc/poudriere.d/openblas-options
-	sudo ln -sf ${PWD}/options/jlall /usr/local/etc/poudriere.d/jlall-options
+	sudo ln -sfF ${PWD}/options/openblas /usr/local/etc/poudriere.d/openblas-options
+	sudo ln -sfF ${PWD}/options/jlall /usr/local/etc/poudriere.d/jlall-options
 
 PORTNAME=	${.TARGET:S/test-//}
 
