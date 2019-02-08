@@ -23,12 +23,15 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libpcre2-8.so:devel/pcre2 \
 		libssh2.so:security/libssh2 \
 		libutf8proc.so:textproc/utf8proc
+EXTRACT_DEPENDS=gmake:devel/gmake
 BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 		pcre2-config:devel/pcre2 \
 		cmake:devel/cmake
 
-USES=		gmake compiler:c++11-lib fortran python:2.7,build perl5
+USES=		gmake compiler:c++11-lib fortran python:2.7,build perl5 \
+		shebangfix
 USE_LDCONFIG=	yes
+SHEBANG_GLOB=	*.sh
 
 WRKSRC=	${WRKDIR}/julia-${PORTVERSION}
 INSTALLDIR=	julia/${PORTNAME}
@@ -116,6 +119,10 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .if ${ARCH} == "i386"
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
+
+post-extract:
+	${GMAKE} -C ${WRKSRC}/deps extract
+	${GMAKE} -C ${WRKSRC}/stdlib install
 
 post-patch:
 	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME} build\"" >> ${WRKSRC}/Make.user
