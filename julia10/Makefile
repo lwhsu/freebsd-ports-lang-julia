@@ -145,6 +145,12 @@ post-install:
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/man/man1/julia.1 ${STAGEDIR}${PREFIX}/man/man1/${PORTNAME}.1
 
+	# clean up for Pkg3.jl
+.for file in .codecov.yml .travis.yml appveyor.yml bors.toml .gitignore source-extracted
+	${RM} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/julia/stdlib/v${PORTVERSION:R}/Pkg/${file}
+	${RM} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/julia/stdlib/v${PORTVERSION:R}/Pkg/ext/TOML/${file}
+.endfor
+
 post-install-DEBUG-on:
 	${RLN} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/bin/julia-debug ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-debug
 
