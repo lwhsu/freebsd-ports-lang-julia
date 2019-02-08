@@ -32,6 +32,7 @@ BUILD_DEPENDS=	patchelf:sysutils/patchelf \
 USES=		gmake compiler:c++11-lib fortran python:2.7,build perl5 \
 		shebangfix
 USE_LDCONFIG=	yes
+
 SHEBANG_GLOB=	*.sh
 
 WRKSRC=	${WRKDIR}/julia-${PORTVERSION}
