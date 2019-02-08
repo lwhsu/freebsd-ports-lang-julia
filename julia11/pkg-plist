@@ -477,7 +477,6 @@ man/man1/julia11.1.gz
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/bin/stdlib.toml
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/bin/update.jl
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/bin/utils.jl
-%%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/bors.toml
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/docs/Project.toml
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/docs/make.jl
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/docs/src/api.md
@@ -492,7 +491,6 @@ man/man1/julia11.1.gz
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/docs/src/index.md
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/docs/src/managing-packages.md
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/docs/src/registries.md
-%%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/ext/TOML/.gitignore
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/ext/TOML/LICENSE.md
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/ext/TOML/README.md
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/ext/TOML/REQUIRE

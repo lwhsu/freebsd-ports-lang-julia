@@ -457,7 +457,6 @@ man/man1/julia10.1.gz
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Mmap/docs/src/index.md
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Mmap/src/Mmap.jl
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Mmap/test/runtests.jl
-%%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/bors.toml
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/CHANGELOG.md
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/Compat.toml
 %%JULIA%%/share/julia/stdlib/v%%VERSION%%/Pkg/LICENSE.md
