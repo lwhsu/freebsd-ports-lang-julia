@@ -119,6 +119,15 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .endif
 .endif  # .if ${PORT_OPTIONS:MNATIVE}
 
+# OPENBLAS plist
+.if ${PORT_OPTIONS:MOPENBLAS}
+.if ${ARCH} == "amd64"
+PLIST_FILES+=	${INSTALLDIR}/lib/julia/libopenblas64_.so
+.else
+PLIST_FILES+=	${INSTALLDIR}/lib/julia/libopenblas.so
+.endif
+.endif  # .if ${PORT_OPTIONS:MOPENBLAS}
+
 .if ${ARCH} == "i386"
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
