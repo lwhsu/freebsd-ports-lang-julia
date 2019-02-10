@@ -55,6 +55,7 @@ bin/julia10
 %%GPL_LIBS%%%%JULIA%%/lib/julia/libsuitesparse_wrapper.so
 %%GPL_LIBS%%%%JULIA%%/lib/julia/libsuitesparseconfig.so
 %%GPL_LIBS%%%%JULIA%%/lib/julia/libumfpack.so
+%%OPENBLAS%%%%JULIA%%/lib/julia/libopenblas%%OPENBLAS64%%.so
 %%JULIA%%/lib/libjulia.so
 %%JULIA%%/lib/libjulia.so.1
 %%JULIA%%/lib/libjulia.so.%%VERSION%%

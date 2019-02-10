@@ -122,9 +122,9 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 # OPENBLAS plist
 .if ${PORT_OPTIONS:MOPENBLAS}
 .if ${ARCH} == "amd64"
-PLIST_FILES+=	${INSTALLDIR}/lib/julia/libopenblas64_.so
+PLIST_SUB+=	OPENBLAS64="64_"
 .else
-PLIST_FILES+=	${INSTALLDIR}/lib/julia/libopenblas.so
+PLIST_SUB+=	OPENBLAS64=""
 .endif
 .endif  # .if ${PORT_OPTIONS:MOPENBLAS}
 
