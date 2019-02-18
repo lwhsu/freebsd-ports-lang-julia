@@ -82,6 +82,7 @@ DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${PKGNAMESUFFIX}
 PORTDOCS=	html
 DOCS_VARS=	INSTALL_TARGET+=install-docs
 
+EXAMPLESDIR=	${PREFIX}/share/examples/${PORTNAME}${PKGNAMESUFFIX}
 PORTEXAMPLES=	*
 EXAMPLES_VARS=	INSTALL_TARGET+=install-examples
 
@@ -188,5 +189,9 @@ post-install-DOCS-on:
 post-install-DOCS-off:
 	# remove empty dir
 	${RM} -r ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/doc
+
+post-install-EXAMPLES-on:
+	${MV} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/examples/julia ${STAGEDIR}${EXAMPLESDIR}
+	${RMDIR} ${STAGEDIR}${PREFIX}/${INSTALLDIR}/share/examples
 
 .include <bsd.port.mk>
