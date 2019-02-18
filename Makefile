@@ -4,7 +4,7 @@ RSYNC_FLAGS=	-a --progress --delete --exclude=work
 POUDRIERE=	sudo poudriere
 POUDRIERE_FLAGS=testport -p dev -w
 
-all: julia julia10 julia11
+all: julia julia07 julia06 julia10 julia11
 
 .PHONY: julia
 julia:
