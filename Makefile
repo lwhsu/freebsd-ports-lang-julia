@@ -30,7 +30,7 @@ test-julia06 test-julia07 test-julia11 test-julia10: ${.TARGET:S/test-//} option
 .endfor
 .endfor
 
-test-julia:
+test-julia: all
 .for jail in 120r 120r-i386 112r 112r-i386
 	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia
 .endfor
