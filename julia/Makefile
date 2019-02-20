@@ -3,6 +3,7 @@
 
 PORTNAME=	julia
 PORTVERSION=	1
+PORTEPOCH=	1
 CATEGORIES=	lang math
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -18,8 +19,8 @@ ONLY_FOR_ARCHS=	amd64 i386
 NO_BUILD=	yes
 
 PLIST_FILES=	bin/julia \
-		man/man1/julia.1.gz
-#TODO bin/julia-debug manpage
+		man/man1/julia.1.gz\
+		etc/julia
 
 OPTIONS_DEFINE=	V06 V07 V10 V11
 OPTIONS_DEFAULT=	V11 D11
@@ -46,16 +47,13 @@ D07_IMPLIES=	V07
 D10_IMPLIES=	V10
 D11_IMPLIES=	V11
 
-D06_PLIST_FILES=	etc/juliarc.jl
-D06_PLIST_FILES_OFF=	etc/startup.jl
-
 .include <bsd.port.options.mk>
 
 _JULIA_VER=	${PORT_OPTIONS:MD*:S/D//}
 
 do-install:
 	${RLN} julia${_JULIA_VER} ${STAGEDIR}${PREFIX}/bin/julia
-	${RLN} ${STAGEDIR}${PREFIX}/julia/julia${_JULIA_VER}/etc/julia ${STAGEDIR}${PREFIX}/etc
+	${RLN} ../julia/julia${_JULIA_VER}/etc/julia ${STAGEDIR}${PREFIX}/etc
 	${RLN} julia${_JULIA_VER}.1.gz ${STAGEDIR}${PREFIX}/man/man1/julia.1.gz
 
 .include <bsd.port.mk>
