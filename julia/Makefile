@@ -1,21 +1,21 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
-# $FreeBSD$
+# $FreeBSD: head/lang/julia/Makefile 499638 2019-04-22 13:16:33Z gerald $
 
 PORTNAME=	julia
-PORTVERSION=	${JULIA_DEFAULT:R}
-PORTEPOCH=	1
+PORTVERSION=	1.0.3
 CATEGORIES=	lang math
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
 MAINTAINER=	iblis@hs.ntnu.edu.tw
-COMMENT=	"meta port" for the different versions of Julia compiler
+COMMENT=	Meta port for the different versions of Julia compiler
 
 # LICENSE=	# empty
 # LICENSE_FILE=	# empty
 
 ONLY_FOR_ARCHS=	amd64 i386
+
 NO_BUILD=	yes
 
 PLIST_FILES=	bin/julia \
