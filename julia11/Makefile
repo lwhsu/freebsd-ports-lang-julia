@@ -133,8 +133,8 @@ EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
 .endif
 
 post-extract:
-	${GMAKE} -C ${WRKSRC}/deps extract
-	${GMAKE} -C ${WRKSRC}/stdlib install
+	${MAKE_CMD} -C ${WRKSRC}/deps extract
+	${MAKE_CMD} -C ${WRKSRC}/stdlib install
 
 post-patch:
 	echo "override TAGGED_RELEASE_BANNER=\"FreeBSD port lang/${PORTNAME}${PKGNAMESUFFIX} build\"" >> ${WRKSRC}/Make.user
