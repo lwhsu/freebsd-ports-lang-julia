@@ -1,8 +1,9 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
-# $FreeBSD: head/lang/julia/Makefile 499638 2019-04-22 13:16:33Z gerald $
+# $FreeBSD$
 
 PORTNAME=	julia
 PORTVERSION=	1.0.3
+PORTREVISION=	2
 CATEGORIES=	lang math
 MASTER_SITES=	# empty
 DISTFILES=	# empty

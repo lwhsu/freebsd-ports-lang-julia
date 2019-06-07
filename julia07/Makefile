@@ -1,5 +1,5 @@
 # Created by: Iblis Lin <iblis@hs.ntnu.edu.tw>
-# $FreeBSD: head/lang/julia07/Makefile 499638 2019-04-22 13:16:33Z gerald $
+# $FreeBSD$
 
 PORTNAME=	julia
 PORTVERSION=	0.7.0

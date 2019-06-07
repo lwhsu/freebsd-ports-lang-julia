@@ -34,3 +34,11 @@ test-julia: all
 .for jail in 120r 120r-i386 112r 112r-i386
 	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/julia
 .endfor
+
+
+sync-portstree:
+	${RSYNC} ${RSYNC_FLAGS} /usr/ports/lang/julia06/ julia06/
+	${RSYNC} ${RSYNC_FLAGS} /usr/ports/lang/julia07/ julia07/
+	${RSYNC} ${RSYNC_FLAGS} /usr/ports/lang/julia10/ julia10/
+	${RSYNC} ${RSYNC_FLAGS} /usr/ports/lang/julia11/ julia11/
+	${RSYNC} ${RSYNC_FLAGS} /usr/ports/lang/julia/   julia/
