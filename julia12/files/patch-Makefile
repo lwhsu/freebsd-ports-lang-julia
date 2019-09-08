@@ -1,6 +1,6 @@
---- Makefile.orig	2019-08-20 08:05:52.000000000 +0800
-+++ Makefile	2019-08-20 08:48:14.048027000 +0800
-@@ -191,24 +191,6 @@
+--- Makefile.orig	2019-08-20 00:05:52 UTC
++++ Makefile
+@@ -191,24 +191,6 @@ endif
  endif
  endif
  
@@ -25,7 +25,7 @@
  ifeq ($(OS),WINNT)
  # find the standard .dll folders
  ifeq ($(XC_HOST),)
-@@ -269,7 +251,7 @@
+@@ -269,7 +251,7 @@ JL_PRIVATE_LIBS-0 += libgfortran libgcc_s libquadmath
  endif
  
  
@@ -34,7 +34,7 @@
  ifeq ($(BUNDLE_DEBUG_LIBS),1)
  	@$(MAKE) $(QUIET_MAKE) all
  else
-@@ -317,10 +299,6 @@
+@@ -317,10 +299,6 @@ endif
  			fi \
  		done \
  	done
@@ -45,7 +45,7 @@
  endif
  
  	# Copy public headers
-@@ -333,8 +311,6 @@
+@@ -333,8 +311,6 @@ endif
  
  	# Copy in all .jl sources as well
  	cp -R -L $(build_datarootdir)/julia $(DESTDIR)$(datarootdir)/
@@ -54,7 +54,7 @@
  	# Remove various files which should not be installed
  	-rm -f $(DESTDIR)$(datarootdir)/julia/base/version_git.sh
  	-rm -f $(DESTDIR)$(datarootdir)/julia/test/Makefile
-@@ -344,16 +320,6 @@
+@@ -344,16 +320,6 @@ endif
  	-rm -f $(DESTDIR)$(datarootdir)/julia/stdlib/$(VERSDIR)/*/build-checked
  	# Copy in beautiful new man page
  	$(INSTALL_F) $(build_man1dir)/julia.1 $(DESTDIR)$(man1dir)/
@@ -71,7 +71,7 @@
  
  	# Update RPATH entries and JL_SYSTEM_IMAGE_PATH if $(private_libdir_rel) != $(build_private_libdir_rel)
  ifneq ($(private_libdir_rel),$(build_private_libdir_rel))
-@@ -364,7 +330,7 @@
+@@ -364,7 +330,7 @@ ifeq ($(OS), Darwin)
  	done
  else ifneq (,$(findstring $(OS),Linux FreeBSD))
  	for j in $(JL_TARGETS) ; do \
@@ -80,7 +80,7 @@
  	done
  endif
  
-@@ -375,22 +341,24 @@
+@@ -375,22 +341,24 @@ ifeq ($(BUNDLE_DEBUG_LIBS),1)
  endif
  
  endif

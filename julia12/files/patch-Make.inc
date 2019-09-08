@@ -1,6 +1,6 @@
---- Make.inc.orig	2019-08-20 08:05:52.000000000 +0800
-+++ Make.inc	2019-08-20 09:10:12.120676000 +0800
-@@ -136,12 +136,7 @@
+--- Make.inc.orig	2019-08-20 00:05:52 UTC
++++ Make.inc
+@@ -136,12 +136,7 @@ endif
  # disable automatic Makefile rules
  .SUFFIXES:
  
@@ -13,7 +13,7 @@
  
  # Julia's Semantic Versioning system labels the three decimal places in a version number as
  # the major, minor and patch versions.  Typically the major version would be incremented
-@@ -191,7 +186,7 @@
+@@ -191,7 +186,7 @@ libdir := $(prefix)/lib
  libexecdir := $(prefix)/libexec
  datarootdir := $(prefix)/share
  docdir := $(datarootdir)/doc/julia
@@ -22,7 +22,7 @@
  man1dir := $(mandir)/man1
  includedir := $(prefix)/include
  sysconfdir := $(prefix)/etc
-@@ -204,7 +199,7 @@
+@@ -204,7 +199,7 @@ build_depsbindir := $(build_prefix)/tools
  build_libdir := $(build_prefix)/lib
  build_libexecdir := $(build_prefix)/libexec
  build_datarootdir := $(build_prefix)/share
@@ -31,7 +31,7 @@
  build_man1dir := $(build_mandir)/man1
  build_includedir := $(build_prefix)/include
  build_sysconfdir := $(build_prefix)/etc
-@@ -359,7 +354,7 @@
+@@ -359,7 +354,7 @@ endif
  ifeq ($(USEIFC), 1)
  FC := ifort
  else
@@ -40,7 +40,7 @@
  endif
  
  STDLIBCPP_FLAG :=
-@@ -412,8 +407,8 @@
+@@ -412,8 +407,8 @@ SHIPFLAGS := -O3 -ggdb2 -falign-functions
  endif
  
  ifeq ($(USECLANG),1)
@@ -51,7 +51,7 @@
  JCFLAGS := -pipe $(fPIC) -fno-strict-aliasing -D_FILE_OFFSET_BITS=64
  # AArch64 needs this flag to generate the .eh_frame used by libunwind
  JCPPFLAGS := -fasynchronous-unwind-tables
-@@ -928,16 +923,7 @@
+@@ -928,16 +923,7 @@ else
    UTF8PROC_INC := $(build_includedir)
  endif
  

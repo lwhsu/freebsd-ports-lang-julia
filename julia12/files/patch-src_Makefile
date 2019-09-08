@@ -1,6 +1,6 @@
---- src/Makefile.orig	2019-08-20 08:05:52.000000000 +0800
-+++ src/Makefile	2019-08-20 08:56:13.328690000 +0800
-@@ -278,7 +278,7 @@
+--- src/Makefile.orig	2019-08-20 00:05:52 UTC
++++ src/Makefile
+@@ -278,7 +278,7 @@ else
  endif
  
  $(build_shlibdir)/libjulia-debug.$(JL_MAJOR_MINOR_SHLIB_EXT): $(SRCDIR)/julia.expmap $(DOBJS) $(BUILDDIR)/flisp/libflisp-debug.a $(BUILDDIR)/support/libsupport-debug.a $(LIBUV)
@@ -9,7 +9,7 @@
  	$(INSTALL_NAME_CMD)libjulia-debug.$(SHLIB_EXT) $@
  ifneq ($(OS), WINNT)
  	@ln -sf libjulia-debug.$(JL_MAJOR_MINOR_SHLIB_EXT) $(build_shlibdir)/libjulia-debug.$(JL_MAJOR_SHLIB_EXT)
-@@ -293,7 +293,7 @@
+@@ -293,7 +293,7 @@ $(BUILDDIR)/libjulia-debug.a: $(SRCDIR)/julia.expmap $
  libjulia-debug: $(build_shlibdir)/libjulia-debug.$(JL_MAJOR_MINOR_SHLIB_EXT) $(PUBLIC_HEADER_TARGETS)
  
  $(build_shlibdir)/libjulia.$(JL_MAJOR_MINOR_SHLIB_EXT): $(SRCDIR)/julia.expmap $(OBJS) $(BUILDDIR)/flisp/libflisp.a $(BUILDDIR)/support/libsupport.a $(LIBUV)
