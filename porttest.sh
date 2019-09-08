@@ -12,16 +12,9 @@ mv ports ports.old
 #svnlite co svn://svn.freebsd.org/ports/head ports
 portsnap --interactive fetch extract
 
+# copy the file to PORTSDIR
 cd ${CIRRUS_WORKING_DIR}
-for p in `cat list.txt`
-do
-	if [ -d ${PORTSDIR}/${p}/ ]; then
-		rm -fr ${PORTSDIR}/${p}/*
-	else
-		mkdir -p ${PORTSDIR}/${p}
-	fi
-        cp -R ./${p}/* ${PORTSDIR}/${p}/
-done
+make PORTSTREE=${PORTSDIR}
 
 mkdir /usr/ports/distfiles
 
