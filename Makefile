@@ -8,12 +8,15 @@ PORTSTREE?=	/home/iblis/ports/dev
 
 all: julia julia07 julia06 julia10 julia11 julia12
 
+.PHONY: julia
 julia:
 	${RSYNC} ${RSYNC_FLAGS} julia/ ${PORTSTREE}/lang/julia/
 
+.PHONY: julia06 julia07 julia10 julia11 julia12
 julia06 julia07 julia10 julia11 julia12:
 	${RSYNC} ${RSYNC_FLAGS} ${.TARGET}/ ${PORTSTREE}/lang/${.TARGET}/
 
+.PHONY: options
 options:
 	sudo ln -sfF ${PWD}/options/openblas /usr/local/etc/poudriere.d/openblas-options
 	sudo ln -sfF ${PWD}/options/jlall /usr/local/etc/poudriere.d/jlall-options
