@@ -46,7 +46,7 @@ rm -fr pkgs
 
 if [ ${PORT_OPTION_SET} ]
 then
-    poudriere testport -j jail ${PORT} -z ${PORT_OPTION_SET}
+    poudriere testport -j jail -z ${PORT_OPTION_SET} ${PORT}
 else
     poudriere testport -j jail ${PORT}
 fi
