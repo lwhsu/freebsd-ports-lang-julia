@@ -6,8 +6,8 @@ task:
   timeout_in: 120m
   freebsd_instance:
     matrix:
-      image: freebsd-12-0-release-amd64
-      image: freebsd-11-2-release-amd64
+      image_family: freebsd-12-2
+      image_family: freebsd-11-4
     cpu: 8
     memory: 16G
   install_script:
@@ -15,3 +15,9 @@ task:
     - pkg install -y poudriere rsync
   script:
     - ./porttest.sh
+  env:
+    matrix:
+      PORT_OPTION_SET: ""
+      PORT_OPTION_SET: "jlall"
+      PORT_OPTION_SET: "openblas"
+      PORT_OPTION_SET: "syslibm"

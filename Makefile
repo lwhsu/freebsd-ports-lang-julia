@@ -6,6 +6,8 @@ POUDRIERE_FLAGS=testport -p dev -w
 
 PORTSTREE?=	/home/iblis/ports/dev
 
+OPTION_SETS=	openblas jlall syslibm
+
 all: julia julia07 julia06 julia10 julia11 julia12
 
 .PHONY: julia
@@ -28,7 +30,7 @@ PORTNAME=	${.TARGET:S/test-//}
 test-julia06 test-julia07 test-julia10 test-julia11 test-julia12: ${.TARGET:S/test-//} options
 .for jail in 120r 120r-i386 113r 113r-i386
 	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME}
-.for set in openblas syslibm jlall
+.for set in ${OPTION_SETS}
 	${POUDRIERE} ${POUDRIERE_FLAGS} -j ${jail} -o lang/${PORTNAME} -z ${set}
 .endfor
 .endfor
