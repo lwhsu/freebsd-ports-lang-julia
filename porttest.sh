@@ -15,13 +15,11 @@ portsnap --interactive fetch extract
 # copy the file to PORTSDIR
 cd ${CIRRUS_WORKING_DIR}
 make PORTSTREE=${PORTSDIR}
+make PORTSTREE=${PORTSDIR} options
 
 mkdir /usr/ports/distfiles
 
 df -h
-
-#cd /usr/ports/editors/libreoffice
-#make all-depends-list | awk -F'/' '{print $4"/"$5}' | xargs pkg install -y
 
 echo "NO_ZFS=yes" >> /usr/local/etc/poudriere.conf
 echo "ALLOW_MAKE_JOBS=yes" >> /usr/local/etc/poudriere.conf
@@ -46,4 +44,9 @@ rm -fr /usr/local/poudriere/data/packages/jail-default/.latest/All
 mv pkgs/All /usr/local/poudriere/data/packages/jail-default/.latest/
 rm -fr pkgs
 
-poudriere testport -j jail ${PORT}
+if [ ${PORT_OPTION_SET} ]
+then
+    poudriere testport -j jail -z ${PORT_OPTION_SET} ${PORT}
+else
+    poudriere testport -j jail ${PORT}
+fi
