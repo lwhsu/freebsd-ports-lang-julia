@@ -739,6 +739,7 @@ man/man1/julia10.1.gz
 %%JULIA%%/share/julia/test/llvmpasses/lit.cfg
 %%JULIA%%/share/julia/test/llvmpasses/lower-handlers.ll
 %%JULIA%%/share/julia/test/llvmpasses/muladd.ll
+%%JULIA%%/share/julia/test/llvmpasses/noinline.jl
 %%JULIA%%/share/julia/test/llvmpasses/propagate-addrspace.ll
 %%JULIA%%/share/julia/test/llvmpasses/refinements.ll
 %%JULIA%%/share/julia/test/llvmpasses/returnstwicegc.ll

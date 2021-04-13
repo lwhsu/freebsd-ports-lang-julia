@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	julia
-PORTVERSION=	1.0.4
+PORTVERSION=	1.0.5
 CATEGORIES=	lang math
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -22,23 +22,20 @@ PLIST_FILES=	bin/julia \
 		man/man1/julia.1.gz\
 		etc/julia
 
+OPTIONS_DEFINE=	V10
 OPTIONS_DEFAULT=	V${JULIA_DEFAULT:S/.//} D${JULIA_DEFAULT:S/.//}
 OPTIONS_SINGLE=	DEFAULTVER
+OPTIONS_SINGLE_DEFAULTVER=	D10  # D stands for default
 
-.for v in 06 07 10 11 12
-OPTIONS_DEFINE+=	V${v}
-OPTIONS_SINGLE_DEFAULTVER+=	D${v}  # D stands for default
+V10_DESC=	Install v${:!${MAKE} -C ${PORTSDIR}/lang/julia10 -v PORTVERSION!} release \
+	(1.x long-term support branch)
 
-V${v}_DESC=	Install v${:!${MAKE} -C ${PORTSDIR}/lang/julia${v} -v PORTVERSION!} release
-V${v}_RUN_DEPENDS=	julia${v}:lang/julia${v}
-
-D${v}_IMPLIES=	V${v}
-.endfor
+V10_RUN_DEPENDS=	julia10:lang/julia10
 
 DEFAULTVER_DESC=	Select default version
-D06_DESC=	Please select a version for setting up symbolic links of
-D07_DESC=	bin/julia, manpage and etc/startup.jl.
+D10_DESC=	Set up symbolic links of bin/julia, manual page and etc/startup.jl for 1.0
 
+D10_IMPLIES=	V10
 
 .include <bsd.port.options.mk>
 

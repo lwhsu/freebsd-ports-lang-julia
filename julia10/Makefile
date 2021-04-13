@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	julia
-PORTVERSION=	1.0.4
-PORTREVISION=	1
+DISTVERSION=	1.0.5
 DISTVERSIONSUFFIX=	-full
 CATEGORIES=	lang math
 MASTER_SITES=	https://github.com/JuliaLang/julia/releases/download/v${PORTVERSION}/
@@ -17,6 +16,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 ONLY_FOR_ARCHS=	amd64 i386
 
+EXTRACT_DEPENDS=gmake:devel/gmake
+BUILD_DEPENDS=	patchelf:sysutils/patchelf \
+		pcre2-config:devel/pcre2 \
+		cmake:devel/cmake
 LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libgit2.so:devel/libgit2 \
 		libgmp.so:math/gmp \
@@ -25,12 +28,8 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libpcre2-8.so:devel/pcre2 \
 		libssh2.so:security/libssh2 \
 		libutf8proc.so:textproc/utf8proc
-EXTRACT_DEPENDS=gmake:devel/gmake
-BUILD_DEPENDS=	patchelf:sysutils/patchelf \
-		pcre2-config:devel/pcre2 \
-		cmake:devel/cmake
 
-USES=		gmake compiler:c++11-lib fortran python:2.7,build perl5 \
+USES=		gmake compiler:c++11-lib fortran python:3.6+,build perl5 \
 		shebangfix
 USE_LDCONFIG=	yes
 
@@ -105,7 +104,7 @@ OPENBLAS_DESC=	Private OpenBLAS v0.3.2\
 		(ports tree: v${:!${MAKE} -C ${PORTSDIR}/math/openblas -V PORTVERSION!})
 OPENBLAS_MAKE_ARGS=	USE_SYSTEM_BLAS=0 OPENBLAS_DYNAMIC_ARCH=1
 OPENBLAS_MAKE_ARGS_OFF=	USE_SYSTEM_BLAS=1
-OPENBLAS_LIB_DEPENDS_OFF=	libopenblasp.so:math/openblas
+OPENBLAS_LIB_DEPENDS_OFF=	libopenblas.so:math/openblas
 
 .include <bsd.port.options.mk>
 
@@ -123,13 +122,11 @@ MAKE_ARGS+=	JULIA_CPU_TARGET=generic
 .endif  # .if ${PORT_OPTIONS:MNATIVE}
 
 # OPENBLAS plist
-.if ${PORT_OPTIONS:MOPENBLAS}
 .if ${ARCH} == "amd64"
 PLIST_SUB+=	OPENBLAS64="64_"
 .else
 PLIST_SUB+=	OPENBLAS64=""
 .endif
-.endif  # .if ${PORT_OPTIONS:MOPENBLAS}
 
 .if ${ARCH} == "i386"
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ui_Makefile
@@ -149,8 +146,8 @@ post-patch-OPENBLAS-on:
 	${CP} ${FILESDIR}/extra-patch-openblas-fix-arch.patch ${WRKSRC}/deps/patches/openblas-fix-arch.patch
 
 post-patch-OPENBLAS-off:
-	echo "LIBBLAS= -lopenblasp -L${LOCALBASE}/lib" >> ${WRKSRC}/Make.user
-	echo "LIBBLASNAME=libopenblasp" >> ${WRKSRC}/Make.user
+	echo "LIBBLAS= -lopenblas -L${LOCALBASE}/lib" >> ${WRKSRC}/Make.user
+	echo "LIBBLASNAME=libopenblas" >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACK= $$(LIBBLAS)' >> ${WRKSRC}/Make.user
 	echo 'LIBLAPACKNAME= $$(LIBBLASNAME)' >> ${WRKSRC}/Make.user
 
