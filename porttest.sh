@@ -6,16 +6,14 @@ set -ex
 
 pwd
 
-cd /usr
-#ls -al ports
-mv ports ports.old
-#svnlite co svn://svn.freebsd.org/ports/head ports
-portsnap --interactive fetch extract
+mkdir -p /usr/local/poudriere
+
+mv /usr/ports /usr/ports.old
+git clone https://github.com/freebsd/freebsd-ports /usr/ports
 
 # copy the file to PORTSDIR
-cd ${CIRRUS_WORKING_DIR}
-make PORTSTREE=${PORTSDIR}
-make PORTSTREE=${PORTSDIR} options
+make -C ${CIRRUS_WORKING_DIR} PORTSTREE=${PORTSDIR}
+make -C ${CIRRUS_WORKING_DIR} PORTSTREE=${PORTSDIR} options
 
 mkdir /usr/ports/distfiles
 
@@ -24,7 +22,6 @@ df -h
 echo "NO_ZFS=yes" >> /usr/local/etc/poudriere.conf
 echo "ALLOW_MAKE_JOBS=yes" >> /usr/local/etc/poudriere.conf
 sed -i.bak -e 's,FREEBSD_HOST=_PROTO_://_CHANGE_THIS_,FREEBSD_HOST=https://download.FreeBSD.org,' /usr/local/etc/poudriere.conf
-mkdir -p /usr/local/poudriere
 
 poudriere jail -c -j jail -v `uname -r`
 poudriere ports -c -f none -m null -M /usr/ports
