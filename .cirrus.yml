@@ -8,6 +8,7 @@ task:
     matrix:
       image_family: freebsd-12-2
       image_family: freebsd-11-4
+      image_family: freebsd-13-0
     cpu: 8
     memory: 16G
   install_script:
