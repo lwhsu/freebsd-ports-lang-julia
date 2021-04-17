@@ -8,7 +8,6 @@ pwd
 
 cd /usr
 mv ports ports.old
-portsnap --interactive fetch extract
 git clone --depth=1 --single-branch -b main https://github.com/freebsd/freebsd-ports.git ports
 
 # copy the file to PORTSDIR
