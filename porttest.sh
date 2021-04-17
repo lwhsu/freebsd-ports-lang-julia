@@ -7,10 +7,9 @@ set -ex
 pwd
 
 cd /usr
-#ls -al ports
 mv ports ports.old
-#svnlite co svn://svn.freebsd.org/ports/head ports
 portsnap --interactive fetch extract
+git clone --depth=1 --single-branch -b main https://github.com/freebsd/freebsd-ports.git ports
 
 # copy the file to PORTSDIR
 cd ${CIRRUS_WORKING_DIR}
@@ -29,8 +28,8 @@ mkdir -p /usr/local/poudriere
 poudriere jail -c -j jail -v `uname -r`
 poudriere ports -c -f none -m null -M /usr/ports
 
-# use an easy port to bootstrap pkg repo
-poudriere bulk -t -j jail net/nc
+# bootstrap pkg repo
+poudriere bulk -t -j jail ports-mgmt/pkg
 
 PORT=lang/julia
 
@@ -39,10 +38,8 @@ cd ${PORT}
 PWD=`pwd -P`
 PORTDIR=`dirname ${PWD}`
 PORTDIR=`dirname ${PORTDIR}`
-make all-depends-list | sed -e "s,${PORTDIR}/,," | xargs sudo pkg fetch -y -o pkgs
-rm -fr /usr/local/poudriere/data/packages/jail-default/.latest/All
-mv pkgs/All /usr/local/poudriere/data/packages/jail-default/.latest/
-rm -fr pkgs
+make all-depends-list | sed -e "s,${PORTDIR}/,," | xargs sudo \
+	pkg fetch -y -o /usr/local/poudriere/data/packages/jail-default/.latest
 
 if [ ${PORT_OPTION_SET} ]
 then
